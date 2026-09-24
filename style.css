@@ -148,7 +148,7 @@ a:focus-visible, button:focus-visible {
 .about-block {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 30px;
+  gap: 50px;
   align-items: start;
 }
 /* ---------- PI column ---------- */
@@ -196,8 +196,6 @@ a:focus-visible, button:focus-visible {
   color: var(--accent-dark);
   line-height: 1.4;
 }
-
-
 
 
 /* ---------- Nav ---------- */
