@@ -349,23 +349,6 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ---------- About / details block (with logo) ---------- */
-.about-block {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 36px;
-  align-items: start;
-}
-
-@media (max-width: 640px) {
-  .about-block { grid-template-columns: 1fr; }
-}
-
-.about-block .logo-box {
-  width: 110px;
-  height: 110px;
-  font-size: 10px;
-}
-
 .stat-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
