@@ -35,7 +35,7 @@
   --radius: 3px;
 
   /* Banner photo height — change this one value to resize the strip */
-  --banner-height: 2cm;
+  --banner-height: 10cm;
 }
 
 * { box-sizing: border-box; }
