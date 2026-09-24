@@ -144,6 +144,14 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ---------- PI column ---------- */
+/* ---------- About / PI block ---------- */
+.about-block {
+  display: grid;
+  grid-template-columns: 600px 1fr;
+  gap: 70px;
+  align-items: start;
+}
+/* ---------- PI column ---------- */
 .pi-column {
   width: 100%;
 }
@@ -188,6 +196,7 @@ a:focus-visible, button:focus-visible {
   color: var(--accent-dark);
   line-height: 1.4;
 }
+
 
 
 
