@@ -148,7 +148,7 @@ a:focus-visible, button:focus-visible {
 .about-block {
   display: grid;
   grid-template-columns: 600px 1fr;
-  gap: 70px;
+  gap: 20px;
   align-items: start;
 }
 /* ---------- PI column ---------- */
