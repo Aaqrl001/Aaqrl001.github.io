@@ -567,3 +567,17 @@ a:focus-visible, button:focus-visible {
   html { scroll-behavior: auto; }
   * { transition-duration: 0.001ms !important; }
 }
+
+@media (max-width: 900px) {
+  .about-block {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .pi-column .logo-box,
+  .pi-column .logo-box img,
+  .pi-caption {
+    width: 100%;
+    max-width: 560px;
+  }
+}
