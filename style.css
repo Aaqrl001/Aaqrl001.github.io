@@ -156,6 +156,19 @@ a:focus-visible, button:focus-visible {
   color: var(--ink);
   line-height: 1.25;
 }
+.pi-column .logo-box {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.pi-column .logo-box img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
 
 
 /* ---------- Nav ---------- */
