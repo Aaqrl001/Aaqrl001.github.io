@@ -156,7 +156,7 @@ a:focus-visible, button:focus-visible {
   width: 100%;
 }
 .pi-column .logo-box {
-  width: 560px;
+  width: 280px;
   height: auto;
   padding: 0;
   margin: 0;
@@ -165,7 +165,7 @@ a:focus-visible, button:focus-visible {
   overflow: visible;
 }
 .pi-column .logo-box img {
-  width: 560px;
+  width: 280px;
   height: auto;
   display: block;
   position: static;
@@ -173,7 +173,7 @@ a:focus-visible, button:focus-visible {
 /* ---------- Text below PI photo ---------- */
 .pi-caption {
   display: block;
-  width: 560px;
+  width: 280px;
   margin-top: 16px;
   position: static;
   text-align: left;
@@ -181,7 +181,7 @@ a:focus-visible, button:focus-visible {
 .pi-caption strong {
   display: block;
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 25px;
   font-weight: 600;
   color: var(--ink);
   line-height: 1.3;
