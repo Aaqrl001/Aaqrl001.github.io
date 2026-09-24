@@ -156,15 +156,7 @@ a:focus-visible, button:focus-visible {
   color: var(--ink);
   line-height: 1.25;
 }
-.pi-caption span {
-  display: block;
-  margin-top: 4px;
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent-dark);
-  line-height: 1.3;
-}
+
 
 /* ---------- Nav ---------- */
 .site-nav {
