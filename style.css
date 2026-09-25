@@ -272,26 +272,6 @@ a:focus-visible, button:focus-visible {
   position: relative;
 }
 /*
-   Small arrow beside items that contain
-   dropdown menus.
-*/
-.has-dropdown > .nav-link::after {
-  content: "⌄";
-  display: inline-block;
-  margin-left: 7px;
-  font-size: 13px;
-  line-height: 1;
-  color: var(--steel-light);
-
-  transition: transform 0.18s ease;
-}
-
-.has-dropdown:hover > .nav-link::after,
-.has-dropdown:focus-within > .nav-link::after {
-  transform: rotate(180deg);
-  color: var(--paper);
-}
-/*
    Dropdown itself.
    It is hidden until the parent is hovered
    or focused.
@@ -300,16 +280,11 @@ a:focus-visible, button:focus-visible {
   position: absolute;
   top: 100%;
   left: 0;
-
   min-width: 245px;
-
   margin: 0;
   padding: 7px 0;
-
   list-style: none;
-
   background: var(--paper);
-
   border-top: 3px solid var(--aqi-orange);
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
