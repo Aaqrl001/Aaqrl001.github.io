@@ -269,9 +269,15 @@ a:focus-visible, button:focus-visible {
 }
 
 @media (max-width: 760px) {
-  .nav-links {
+  .site-nav {
+    position: relative;
+    z-index: 1000;
+  }
+   .nav-inner { position: relative; padding: 6px 0; }
+   .nav-links {
     position: absolute;
     left: 0; right: 0;
+    z-index: 1001;
     background: var(--ink);
     flex-direction: column;
     display: none;
@@ -280,7 +286,7 @@ a:focus-visible, button:focus-visible {
   .nav-link { padding: 13px 24px; border-bottom: none; border-left: 2px solid transparent; }
   .nav-link.active { border-left-color: var(--aqi-orange); border-bottom: none; }
   .nav-toggle { display: block; }
-  .nav-inner { position: relative; padding: 6px 0; }
+  
 }
 
 /* ---------- Banner strip ---------- */
