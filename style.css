@@ -683,7 +683,6 @@ a:focus-visible, button:focus-visible {
   background: var(--ink);
   color: rgba(247, 245, 241, 0.75);
 }
-
 .footer-top {
   display: flex;
   align-items: center;
@@ -692,19 +691,16 @@ a:focus-visible, button:focus-visible {
   border-bottom: 1px solid var(--line-light);
   flex-wrap: wrap;
 }
-
 .footer-top .logo-box {
   background: rgba(247,245,241,0.06);
   border-color: rgba(247,245,241,0.3);
   color: rgba(247,245,241,0.6);
 }
-
 .footer-lab-name {
   font-family: var(--serif);
   font-size: 18px;
   color: var(--paper);
 }
-
 .footer-address {
   padding: 28px 32px;
   display: flex;
@@ -714,7 +710,6 @@ a:focus-visible, button:focus-visible {
   flex-wrap: wrap;
   font-size: 14px;
 }
-
 .footer-address .map-link {
   font-weight: 600;
   color: var(--paper);
@@ -722,13 +717,203 @@ a:focus-visible, button:focus-visible {
   padding-bottom: 2px;
   white-space: nowrap;
 }
-
 .footer-bottom {
   border-top: 1px solid var(--line-light);
   font-size: 12.5px;
   padding: 16px 32px;
   color: var(--steel-light);
 }
+
+/* ============================================================
+   AAQRL NEWS
+   ============================================================ */
+.news-section {
+  background: var(--paper);
+}
+.news-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent-dark);
+}
+/* ---------- View all link ---------- */
+.news-view-all {
+  display: inline-block;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--aqi-orange);
+  padding-bottom: 3px;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.news-view-all:hover {
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+/* ---------- News grid ---------- */
+.news-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 30px 28px;
+}
+/* ---------- News card ---------- */
+.news-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 28px rgba(27, 42, 56, 0.10);
+}
+/* ---------- News image ---------- */
+.news-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.news-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.3s ease;
+}
+
+.news-card:hover .news-media img {
+  transform: scale(1.025);
+}
+/* ---------- News content ---------- */
+.news-content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 25px 26px;
+  flex: 1;
+}
+.news-date {
+  margin-bottom: 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-dark);
+}
+.news-content h3 {
+  font-size: 21px;
+  color: var(--ink);
+  margin-bottom: 9px;
+}
+.news-content p {
+  color: var(--steel);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+/* ---------- Read more ---------- */
+.news-link {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 12px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--aqi-orange);
+  width: fit-content;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.news-link:hover {
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+/* ============================================================
+   VIDEO CARD
+   ============================================================ */
+.video-media {
+  position: relative;
+}
+.play-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(27, 42, 56, 0.88);
+  color: var(--paper);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.20);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+.play-button span {
+  font-size: 18px;
+  margin-left: 3px;
+}
+.video-media:hover .play-button {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+  background: var(--aqi-orange);
+}
+/* ============================================================
+   TEXT-ONLY NEWS CARD
+   ============================================================ */
+.news-card-text {
+  position: relative;
+}
+.news-text-accent {
+  width: 100%;
+  height: 5px;
+  background: var(--aqi-gradient);
+}
+/* ============================================================
+   RESPONSIVE NEWS
+   ============================================================ */
+@media (max-width: 900px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  .news-media {
+    height: 250px;
+  }
+}
+@media (max-width: 600px) {
+  .news-section {
+    padding: 55px 0;
+  }
+  .news-media {
+    height: 210px;
+  }
+  .news-content {
+    padding: 21px 20px 23px;
+  }
+  .news-content h3 {
+    font-size: 19px;
+  }
+}
+
+
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
