@@ -146,8 +146,8 @@ a:focus-visible, button:focus-visible {
 /* AAQRL logo on the right */
 .aaqrl-logo {
   margin-left: auto;
-  width: 200px;
-  height: 160px;
+  width: 100px;
+  height: 80px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -159,6 +159,7 @@ a:focus-visible, button:focus-visible {
   width: auto;
   height: auto;
   object-fit: contain;
+  transform: scale(1.4);
 }
 
 /* ---------- PI column ---------- */
