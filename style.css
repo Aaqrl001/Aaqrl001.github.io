@@ -933,8 +933,12 @@ a:focus-visible, button:focus-visible {
   }
 }
 
+
+
+
 /* ============================================================
    RESEARCH DIRECTORY
+   Full-width layout — no sidebar
    ============================================================ */
 
 .research-section {
@@ -942,116 +946,27 @@ a:focus-visible, button:focus-visible {
   padding-bottom: 90px;
 }
 
-
-/* ============================================================
-   TWO COLUMN LAYOUT
-   ============================================================ */
-
-.research-layout {
-  display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
-  gap: 52px;
-  align-items: start;
-}
-
-
-/* ============================================================
-   LEFT RESEARCH SIDEBAR
-   ============================================================ */
-
-.research-sidebar {
-  position: sticky;
-  top: 110px;
-}
-
-.research-sidebar-inner {
-  border-top: 3px solid var(--aqi-green);
-  padding-top: 20px;
-}
-
-.sidebar-eyebrow {
-  font-family: "Inter", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: #777;
-  margin-bottom: 8px;
-}
-
-.research-sidebar h2 {
-  font-family: "Fraunces", serif;
-  font-size: 26px;
-  line-height: 1.15;
-  margin: 0 0 24px;
-  color: #222;
-}
-
-
-/* ============================================================
-   SIDEBAR LINKS
-   ============================================================ */
-
-.research-sidebar-nav {
-  display: flex;
-  flex-direction: column;
-}
-
-.research-sidebar-nav a {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 10px;
-
-  align-items: start;
-
-  padding: 13px 10px;
-
-  border-bottom: 1px solid #e5e5e5;
-
-  color: #333;
-  text-decoration: none;
-
-  font-size: 13px;
-  line-height: 1.4;
-
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    padding-left 0.2s ease;
-}
-
-.research-sidebar-nav a span:first-child {
-  color: var(--aqi-green);
-  font-size: 11px;
-  font-weight: 700;
-  padding-top: 2px;
-}
-
-.research-sidebar-nav a:hover {
-  color: var(--aqi-green);
-  background: #f7f8f6;
-  padding-left: 15px;
-}
-
-
-/* ============================================================
-   RIGHT CONTENT
-   ============================================================ */
+/* ---------- Research content ---------- */
 
 .research-content {
+  width: 100%;
   min-width: 0;
 }
 
 .research-grid-header {
-  margin-bottom: 34px;
+  margin-bottom: 38px;
 }
 
 .research-grid-header h2 {
-  max-width: 700px;
+  max-width: 760px;
   margin-bottom: 12px;
+  color: var(--ink);
 }
 
 .research-grid-header .desc {
   max-width: 720px;
+  color: var(--steel);
+  margin: 0;
 }
 
 
@@ -1061,10 +976,7 @@ a:focus-visible, button:focus-visible {
 
 .research-card-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
 }
 
@@ -1074,9 +986,13 @@ a:focus-visible, button:focus-visible {
    ============================================================ */
 
 .research-feature-card {
-  background: #fff;
+  display: flex;
+  flex-direction: column;
 
-  border: 1px solid #e3e3e3;
+  background: var(--paper);
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 
   overflow: hidden;
 
@@ -1089,10 +1005,10 @@ a:focus-visible, button:focus-visible {
 .research-feature-card:hover {
   transform: translateY(-4px);
 
-  border-color: #d5d5d5;
+  border-color: rgba(27, 42, 56, 0.22);
 
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.08);
+    0 12px 30px rgba(27, 42, 56, 0.09);
 }
 
 
@@ -1105,11 +1021,10 @@ a:focus-visible, button:focus-visible {
 
   padding: 20px 20px 17px;
 
-  color: #222;
+  color: var(--ink);
   text-decoration: none;
 
-  font-family: "Fraunces", serif;
-
+  font-family: var(--serif);
   font-size: 21px;
   line-height: 1.2;
   font-weight: 600;
@@ -1118,7 +1033,7 @@ a:focus-visible, button:focus-visible {
 }
 
 .research-feature-title:hover {
-  color: var(--aqi-green);
+  color: var(--accent-dark);
 }
 
 
@@ -1130,12 +1045,11 @@ a:focus-visible, button:focus-visible {
   display: block;
 
   width: 100%;
-
   aspect-ratio: 16 / 10;
 
   overflow: hidden;
 
-  background: #eeeeee;
+  background: var(--paper-2);
 }
 
 .research-feature-image img {
@@ -1149,8 +1063,7 @@ a:focus-visible, button:focus-visible {
   transition: transform 0.5s ease;
 }
 
-.research-feature-card:hover
-.research-feature-image img {
+.research-feature-card:hover .research-feature-image img {
   transform: scale(1.04);
 }
 
@@ -1160,6 +1073,10 @@ a:focus-visible, button:focus-visible {
    ============================================================ */
 
 .research-feature-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
   padding: 18px 20px 22px;
 }
 
@@ -1169,7 +1086,7 @@ a:focus-visible, button:focus-visible {
   font-size: 14px;
   line-height: 1.65;
 
-  color: #666;
+  color: var(--steel);
 }
 
 
@@ -1180,33 +1097,55 @@ a:focus-visible, button:focus-visible {
 .research-feature-card .research-card-link {
   display: inline-block;
 
-  color: var(--aqi-green);
+  width: fit-content;
+
+  margin-top: auto;
+
+  color: var(--accent-dark);
 
   font-size: 12px;
   font-weight: 700;
 
   text-decoration: none;
+
+  border-bottom: 1px solid var(--aqi-orange);
+  padding-bottom: 2px;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .research-feature-card .research-card-link:hover {
-  text-decoration: underline;
+  color: var(--aqi-orange);
+  border-color: var(--accent-dark);
 }
 
 
 /* ============================================================
-   RESPONSIVE
+   RESEARCH CARD — AQI ACCENT
    ============================================================ */
 
-@media (max-width: 1100px) {
+.research-feature-card::before {
+  content: "";
 
-  .research-layout {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 35px;
-  }
+  display: block;
+
+  width: 100%;
+  height: 4px;
+
+  background: var(--aqi-gradient);
+}
+
+
+/* ============================================================
+   RESPONSIVE RESEARCH
+   ============================================================ */
+
+@media (max-width: 1000px) {
 
   .research-card-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
 }
@@ -1219,30 +1158,13 @@ a:focus-visible, button:focus-visible {
     padding-bottom: 60px;
   }
 
-  .research-layout {
-    display: block;
-  }
-
-  .research-sidebar {
-    position: static;
-    margin-bottom: 45px;
-  }
-
-  .research-sidebar-nav {
-    display: grid;
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 0 15px;
-  }
-
-  .research-sidebar-nav a {
-    padding: 12px 5px;
+  .research-grid-header {
+    margin-bottom: 30px;
   }
 
   .research-card-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
 }
@@ -1250,17 +1172,15 @@ a:focus-visible, button:focus-visible {
 
 @media (max-width: 480px) {
 
-  .research-sidebar-nav {
-    grid-template-columns: 1fr;
-  }
-
   .research-feature-title {
     font-size: 20px;
   }
 
+  .research-feature-body {
+    padding: 17px 18px 20px;
+  }
+
 }
-
-
 
 
 
