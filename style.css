@@ -1975,3 +1975,48 @@ button:focus-visible {
   }
 
 }
+
+
+/* ============================================================
+   NAVIGATION DROPDOWN FIX
+   Ensures dropdowns work consistently on every page,
+   including the Research page.
+   ============================================================ */
+
+.site-header,
+.site-nav,
+.nav-inner,
+.nav-links,
+.nav-links > li {
+  position: relative;
+}
+
+.site-nav {
+  z-index: 9999;
+  overflow: visible;
+}
+
+.nav-inner {
+  overflow: visible;
+}
+
+.nav-links {
+  overflow: visible;
+}
+
+.nav-links > li {
+  overflow: visible;
+}
+
+.dropdown-menu {
+  z-index: 10000;
+}
+
+/* Keep research content underneath navigation */
+.research-section,
+.research-content,
+.research-card-grid {
+  position: relative;
+  z-index: 1;
+}
+
