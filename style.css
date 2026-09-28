@@ -387,30 +387,28 @@ button:focus-visible {
 /* ============================================================
    NAVIGATION
    ============================================================ */
-
 .site-nav {
   position: relative;
-  z-index: 1000;
+  z-index: 10000;
 
   background: var(--ink);
 }
 
-.aqi-rule {
-  height: 3px;
-
-  background: var(--aqi-gradient);
-}
-
 .nav-inner {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 4px 0;
+
+  overflow: visible;
 }
 
 .nav-links {
   display: flex;
+  align-items: stretch;
 
   gap: 4px;
 
@@ -418,10 +416,15 @@ button:focus-visible {
   padding: 0;
 
   list-style: none;
+
+  overflow: visible;
 }
 
 .nav-links > li {
   position: relative;
+
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -445,7 +448,7 @@ button:focus-visible {
 .nav-link:hover {
   color: var(--paper);
 
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nav-link.active {
@@ -454,6 +457,19 @@ button:focus-visible {
   border-bottom-color: var(--aqi-orange);
 }
 
+/* ============================================================
+   AQI RULE
+   ============================================================ */
+
+.aqi-rule {
+  position: relative;
+  z-index: 9999;
+
+  width: 100%;
+  height: 3px;
+
+  background: var(--aqi-gradient);
+}
 
 /* ============================================================
    DROPDOWN MENUS
@@ -469,6 +485,10 @@ button:focus-visible {
   top: 100%;
   left: 0;
 
+  z-index: 100000;
+
+  display: block;
+
   min-width: 275px;
 
   margin: 0;
@@ -479,16 +499,16 @@ button:focus-visible {
   background: var(--paper);
 
   border-top: 3px solid var(--aqi-orange);
-
-  border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
 
   box-shadow:
     0 10px 28px rgba(27, 42, 56, 0.18);
 
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 
   transform: translateY(8px);
 
@@ -496,17 +516,21 @@ button:focus-visible {
     opacity 0.16s ease,
     transform 0.16s ease,
     visibility 0.16s ease;
-
-  z-index: 2000;
 }
+
+/* SHOW DROPDOWN */
 
 .has-dropdown:hover > .dropdown-menu,
 .has-dropdown:focus-within > .dropdown-menu {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 
   transform: translateY(0);
 }
+
+
+/* DROPDOWN ITEMS */
 
 .dropdown-menu li {
   margin: 0;
@@ -1975,48 +1999,3 @@ button:focus-visible {
   }
 
 }
-
-
-/* ============================================================
-   NAVIGATION DROPDOWN FIX
-   Ensures dropdowns work consistently on every page,
-   including the Research page.
-   ============================================================ */
-
-.site-header,
-.site-nav,
-.nav-inner,
-.nav-links,
-.nav-links > li {
-  position: relative;
-}
-
-.site-nav {
-  z-index: 9999;
-  overflow: visible;
-}
-
-.nav-inner {
-  overflow: visible;
-}
-
-.nav-links {
-  overflow: visible;
-}
-
-.nav-links > li {
-  overflow: visible;
-}
-
-.dropdown-menu {
-  z-index: 10000;
-}
-
-/* Keep research content underneath navigation */
-.research-section,
-.research-content,
-.research-card-grid {
-  position: relative;
-  z-index: 1;
-}
-
