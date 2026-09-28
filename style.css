@@ -406,13 +406,13 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
 
-  padding: 5px 0;
+  padding: 4px 0;
 }
 
 .nav-links {
   display: flex;
 
-  gap: 5px;
+  gap: 4px;
 
   margin: 0;
   padding: 0;
@@ -427,11 +427,11 @@ button:focus-visible {
 .nav-link {
   display: block;
 
-  padding: 15px 20px;
+  padding: 14px 18px;
 
   border-bottom: 2px solid transparent;
 
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
 
   color: rgba(247, 245, 241, 0.80);
