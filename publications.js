@@ -1,657 +1,499 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const BIB_FILE = "publications.bib";
+/* ============================================================
+   Publications
+   Loads publications.bib and displays APA-style citations
+   ============================================================ */
 
+document.addEventListener("DOMContentLoaded", () => {
   const publicationList = document.getElementById("publication-list");
-  const publicationSearch = document.getElementById("publication-search");
+  const publicationError = document.getElementById("publication-error");
+  const searchInput = document.getElementById("publication-search");
   const publicationCount = document.getElementById("publication-count");
 
-  let publications = [];
+  if (!publicationList) {
+    console.error("Publication list element not found.");
+    return;
+  }
 
-  // ---------------------------------------------------------
-  // Load BibTeX
-  // ---------------------------------------------------------
+  loadPublications();
 
-  fetch(BIB_FILE)
-    .then(response => {
+  async function loadPublications() {
+    try {
+      const response = await fetch("publications.bib", {
+        cache: "no-cache"
+      });
+
       if (!response.ok) {
-        throw new Error(`Unable to load ${BIB_FILE}`);
+        throw new Error(
+          `Could not load publications.bib (${response.status})`
+        );
       }
 
-      return response.text();
-    })
-    .then(bibText => {
-      publications = parseBibTeX(bibText);
+      const bibText = await response.text();
+
+      if (!bibText.trim()) {
+        throw new Error("publications.bib is empty.");
+      }
+
+      const publications = parseBibTeX(bibText);
+
+      if (!publications.length) {
+        throw new Error("No publications were found in publications.bib.");
+      }
 
       publications.sort((a, b) => {
-        const yearDifference =
-          Number(b.year || 0) - Number(a.year || 0);
+        const yearA = parseInt(a.year, 10) || 0;
+        const yearB = parseInt(b.year, 10) || 0;
 
-        if (yearDifference !== 0) {
-          return yearDifference;
-        }
-
-        return getFirstAuthor(a.author)
-          .localeCompare(getFirstAuthor(b.author));
+        return yearB - yearA;
       });
 
-      displayPublications(publications);
-    })
-    .catch(error => {
-      console.error(error);
+      window.allPublications = publications;
 
-      publicationList.innerHTML = `
-        <p class="publication-error">
-          Unable to load publications.
-        </p>
-      `;
-    });
+      renderPublications(publications);
+
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.trim().toLowerCase();
+
+          if (!query) {
+            renderPublications(publications);
+            return;
+          }
+
+          const filtered = publications.filter(publication => {
+            const searchableText = [
+              publication.title,
+              publication.author,
+              publication.journal,
+              publication.year,
+              publication.doi
+            ]
+              .join(" ")
+              .toLowerCase();
+
+            return searchableText.includes(query);
+          });
+
+          renderPublications(filtered);
+        });
+      }
+
+    } catch (error) {
+      console.error("Publication loading error:", error);
+
+      publicationList.innerHTML = "";
+
+      if (publicationError) {
+        publicationError.hidden = false;
+        publicationError.textContent =
+          "Unable to load publications. Please check that publications.bib is in the same folder as publications.html.";
+      }
+    }
+  }
 
 
-  // ---------------------------------------------------------
-  // Parse BibTeX
-  // ---------------------------------------------------------
+  /* ==========================================================
+     BIBTEX PARSER
+     ========================================================== */
 
   function parseBibTeX(text) {
-    const entries = [];
+    const publications = [];
 
-    const entryPattern =
-      /@ARTICLE\s*\{\s*([^,]+),([\s\S]*?)\n\}/gi;
+    /*
+     * Match each BibTeX entry.
+     *
+     * Example:
+     *
+     * @ARTICLE{Luo2026,
+     *   author = {...},
+     *   title = {...},
+     *   year = {2026},
+     *   ...
+     * }
+     */
 
-    let match;
-
-    while ((match = entryPattern.exec(text)) !== null) {
-      const key = match[1].trim();
-      const fields = parseFields(match[2]);
-
-      entries.push({
-        key,
-        author: fields.author || "",
-        title: fields.title || "",
-        year: fields.year || "",
-        journal: fields.journal || "",
-        volume: fields.volume || "",
-        number: fields.number || "",
-        pages: fields.pages || "",
-        doi: fields.doi || "",
-        url: fields.url || ""
-      });
-    }
-
-    return entries;
-  }
-
-
-  // ---------------------------------------------------------
-  // Parse individual BibTeX fields
-  // ---------------------------------------------------------
-
-  function parseFields(text) {
-    const fields = {};
-
-    const fieldPattern =
-      /(\w+)\s*=\s*\{([\s\S]*?)\}\s*,?/g;
+    const entryRegex =
+      /@([A-Za-z]+)\s*\{\s*([^,]+),([\s\S]*?)\n\s*\}/g;
 
     let match;
 
-    while ((match = fieldPattern.exec(text)) !== null) {
-      const field = match[1].toLowerCase();
-      const value = cleanValue(match[2]);
+    while ((match = entryRegex.exec(text)) !== null) {
+      const entryType = match[1];
+      const entryKey = match[2].trim();
+      const fieldsText = match[3];
 
-      fields[field] = value;
+      const fields = {};
+
+      /*
+       * Match:
+       *
+       * field = {value}
+       *
+       * or
+       *
+       * field = "value"
+       */
+
+      const fieldRegex =
+        /([A-Za-z_]+)\s*=\s*(?:\{([\s\S]*?)\}|"([\s\S]*?)")\s*,?/g;
+
+      let fieldMatch;
+
+      while ((fieldMatch = fieldRegex.exec(fieldsText)) !== null) {
+        const fieldName = fieldMatch[1].toLowerCase();
+
+        const fieldValue =
+          fieldMatch[2] !== undefined
+            ? fieldMatch[2]
+            : fieldMatch[3];
+
+        fields[fieldName] = cleanBibValue(fieldValue);
+      }
+
+      if (fields.title) {
+        publications.push({
+          key: entryKey,
+          type: entryType,
+          author: fields.author || "",
+          title: fields.title || "",
+          year: fields.year || "",
+          journal: fields.journal || "",
+          volume: fields.volume || "",
+          number: fields.number || "",
+          pages: fields.pages || "",
+          doi: fields.doi || "",
+          url: fields.url || ""
+        });
+      }
     }
 
-    return fields;
+    return publications;
   }
 
 
-  // ---------------------------------------------------------
-  // Clean BibTeX values
-  // ---------------------------------------------------------
+  /* ==========================================================
+     CLEAN BIBTEX VALUES
+     ========================================================== */
 
-  function cleanValue(value) {
+  function cleanBibValue(value) {
     return value
-      .replace(/\{([^{}]*)\}/g, "$1")
+      .replace(/\r?\n/g, " ")
       .replace(/\s+/g, " ")
+      .replace(/[{}]/g, "")
       .trim();
   }
 
 
-  // ---------------------------------------------------------
-  // Display publications
-  // ---------------------------------------------------------
-
-  function displayPublications(items) {
-    publicationList.innerHTML = "";
-
-    if (items.length === 0) {
-      publicationList.innerHTML =
-        "<p>No publications found.</p>";
-
-      updateCount(0);
-      return;
-    }
-
-    const grouped = groupByYear(items);
-
-    Object.keys(grouped)
-      .sort((a, b) => Number(b) - Number(a))
-      .forEach(year => {
-
-        const yearSection =
-          document.createElement("section");
-
-        yearSection.className =
-          "publication-year-group";
-
-
-        const yearHeading =
-          document.createElement("h3");
-
-        yearHeading.className =
-          "publication-year-heading";
-
-        yearHeading.textContent = year;
-
-
-        yearSection.appendChild(yearHeading);
-
-
-        grouped[year].forEach(publication => {
-
-          const article =
-            createPublication(publication);
-
-          yearSection.appendChild(article);
-
-        });
-
-
-        publicationList.appendChild(yearSection);
-      });
-
-
-    updateCount(items.length);
-  }
-
-
-  // ---------------------------------------------------------
-  // Group publications by year
-  // ---------------------------------------------------------
-
-  function groupByYear(items) {
-    return items.reduce((groups, publication) => {
-
-      const year = publication.year || "Other";
-
-      if (!groups[year]) {
-        groups[year] = [];
-      }
-
-      groups[year].push(publication);
-
-      return groups;
-
-    }, {});
-  }
-
-
-  // ---------------------------------------------------------
-  // Create publication HTML
-  // ---------------------------------------------------------
-
-  function createPublication(publication) {
-    const article =
-      document.createElement("article");
-
-    article.className =
-      "publication-item";
-
-
-    const citation =
-      document.createElement("div");
-
-    citation.className =
-      "publication-citation";
-
-    citation.innerHTML =
-      formatAPA(publication);
-
-
-    article.appendChild(citation);
-
-
-    const link =
-      getPublicationLink(publication);
-
-    if (link) {
-
-      const linkContainer =
-        document.createElement("div");
-
-      linkContainer.className =
-        "publication-link-wrapper";
-
-
-      const anchor =
-        document.createElement("a");
-
-      anchor.href = link;
-      anchor.target = "_blank";
-      anchor.rel = "noopener noreferrer";
-      anchor.className = "research-card-link";
-
-      anchor.textContent =
-        "View publication →";
-
-
-      linkContainer.appendChild(anchor);
-
-      article.appendChild(linkContainer);
-    }
-
-
-    // Store searchable text
-    article.dataset.search =
-      [
-        publication.author,
-        publication.title,
-        publication.journal,
-        publication.year
-      ]
-        .join(" ")
-        .toLowerCase();
-
-
-    return article;
-  }
-
-
-  // ---------------------------------------------------------
-  // APA formatting
-  // ---------------------------------------------------------
-
-  function formatAPA(publication) {
-    const authors =
-      formatAuthors(publication.author);
-
-    const year =
-      publication.year || "n.d.";
-
-    const title =
-      sentenceCase(publication.title);
-
-
-    let citation = "";
-
-
-    // Authors
-    if (authors) {
-      citation += `${escapeHTML(authors)} `;
-    }
-
-
-    // Year
-    citation += `(${escapeHTML(year)}). `;
-
-
-    // Article title
-    citation +=
-      `${escapeHTML(title)}. `;
-
-
-    // Journal
-    if (publication.journal) {
-      citation +=
-        `<em>${escapeHTML(publication.journal)}</em>`;
-    }
-
-
-    // Volume
-    if (publication.volume) {
-      citation +=
-        `, <em>${escapeHTML(publication.volume)}</em>`;
-    }
-
-
-    // Issue
-    if (publication.number) {
-      citation +=
-        `(${escapeHTML(publication.number)})`;
-    }
-
-
-    // Pages
-    if (publication.pages) {
-      citation +=
-        `, ${escapeHTML(normalizePages(publication.pages))}`;
-    }
-
-
-    citation += ".";
-
-
-    return citation;
-  }
-
-
-  // ---------------------------------------------------------
-  // APA author formatting
-  // ---------------------------------------------------------
+  /* ==========================================================
+     APA AUTHOR FORMAT
+     ========================================================== */
 
   function formatAuthors(authorString) {
     if (!authorString) {
       return "";
     }
 
+    const authors = authorString
+      .split(/\s+and\s+/i)
+      .map(author => author.trim())
+      .filter(Boolean);
 
-    const authors =
-      authorString
-        .split(/\s+and\s+/i)
-        .map(parseAuthor)
-        .filter(Boolean);
+    const formattedAuthors = authors.map(formatAuthor);
 
-
-    if (authors.length === 0) {
-      return "";
+    if (formattedAuthors.length === 1) {
+      return formattedAuthors[0];
     }
 
-
-    const formatted =
-      authors.map(author => {
-
-        return `${author.lastName}, ${author.initials}`;
-
-      });
-
-
-    // APA 7: up to 20 authors
-    if (formatted.length <= 20) {
-
-      if (formatted.length === 1) {
-        return formatted[0];
-      }
-
-      if (formatted.length === 2) {
-        return `${formatted[0]} & ${formatted[1]}`;
-      }
-
-      return (
-        formatted.slice(0, -1).join(", ") +
-        ", & " +
-        formatted[formatted.length - 1]
-      );
+    if (formattedAuthors.length === 2) {
+      return `${formattedAuthors[0]} & ${formattedAuthors[1]}`;
     }
 
-
-    // APA 7: 21+ authors
     return (
-      formatted.slice(0, 19).join(", ") +
-      ", ... " +
-      formatted[formatted.length - 1]
+      formattedAuthors.slice(0, -1).join(", ") +
+      ", & " +
+      formattedAuthors[formattedAuthors.length - 1]
     );
   }
 
 
-  // ---------------------------------------------------------
-  // Parse one author
-  // ---------------------------------------------------------
+  /* ==========================================================
+     FORMAT INDIVIDUAL AUTHOR
+     ========================================================== */
 
-  function parseAuthor(author) {
-    author = author.trim();
-
-    if (!author) {
-      return null;
-    }
-
-
-    let lastName;
-    let firstNames;
-
+  function formatAuthor(author) {
+    /*
+     * BibTeX format:
+     *
+     * Last, First Middle
+     *
+     * becomes:
+     *
+     * Last, F. M.
+     */
 
     if (author.includes(",")) {
+      const parts = author.split(",");
 
-      const parts =
-        author.split(",");
+      const lastName = parts[0].trim();
 
-      lastName =
-        parts[0].trim();
+      const firstNames = (parts[1] || "")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
 
-      firstNames =
-        parts.slice(1).join(" ").trim();
+      const initials = firstNames
+        .map(name => {
+          const clean = name.replace(/[{}]/g, "");
 
-    } else {
+          return clean ? `${clean.charAt(0).toUpperCase()}.` : "";
+        })
+        .filter(Boolean)
+        .join(" ");
 
-      const parts =
-        author.split(/\s+/);
-
-      lastName =
-        parts.pop();
-
-      firstNames =
-        parts.join(" ");
+      return initials
+        ? `${lastName}, ${initials}`
+        : lastName;
     }
 
+    /*
+     * Handles names that aren't written as
+     * Last, First.
+     */
 
-    return {
-      lastName,
-      initials: makeInitials(firstNames)
-    };
-  }
+    const parts = author.trim().split(/\s+/);
 
-
-  // ---------------------------------------------------------
-  // Convert first/middle names to initials
-  // ---------------------------------------------------------
-
-  function makeInitials(name) {
-    if (!name) {
-      return "";
+    if (parts.length === 1) {
+      return parts[0];
     }
 
+    const lastName = parts.pop();
 
-    return name
-      .replace(/[{}]/g, "")
-      .split(/\s+/)
-      .filter(Boolean)
-      .map(part => {
-
-        // Carey-Ann → C.-A.
-        if (part.includes("-")) {
-
-          return part
-            .split("-")
-            .filter(Boolean)
-            .map(piece =>
-              `${piece.charAt(0).toUpperCase()}.`
-            )
-            .join("-");
-        }
-
-
-        return `${part.charAt(0).toUpperCase()}.`;
-
-      })
+    const initials = parts
+      .map(name => `${name.charAt(0).toUpperCase()}.`)
       .join(" ");
+
+    return `${lastName}, ${initials}`;
   }
 
 
-  // ---------------------------------------------------------
-  // Convert article title to sentence case
-  // ---------------------------------------------------------
+  /* ==========================================================
+     APA CITATION
+     ========================================================== */
 
-  function sentenceCase(title) {
-    if (!title) {
-      return "";
+  function createCitation(publication) {
+    const authors = formatAuthors(publication.author);
+
+    let citation = "";
+
+    if (authors) {
+      citation += `${escapeHTML(authors)} `;
     }
 
-
-    title = title
-      .replace(/[{}]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-
-    const words =
-      title.toLowerCase().split(" ");
-
-
-    return words
-      .map((word, index) => {
-
-        // Preserve obvious acronyms
-        if (
-          word.length > 1 &&
-          word === word.toUpperCase()
-        ) {
-          return word;
-        }
-
-
-        if (index === 0) {
-          return (
-            word.charAt(0).toUpperCase() +
-            word.slice(1)
-          );
-        }
-
-
-        return word;
-      })
-      .join(" ");
-  }
-
-
-  // ---------------------------------------------------------
-  // Normalize page numbers
-  // ---------------------------------------------------------
-
-  function normalizePages(pages) {
-    return pages
-      .replace(/\s*[–—-]\s*/g, "–")
-      .trim();
-  }
-
-
-  // ---------------------------------------------------------
-  // DOI / URL
-  // ---------------------------------------------------------
-
-  function getPublicationLink(publication) {
-
-    if (publication.doi) {
-
-      const doi =
-        publication.doi
-          .replace(/^https?:\/\/doi\.org\//i, "")
-          .replace(/^doi:\s*/i, "")
-          .trim();
-
-
-      return `https://doi.org/${encodeURIComponent(doi)}`;
+    if (publication.year) {
+      citation += `(${escapeHTML(publication.year)}). `;
     }
 
+    citation += `<span class="publication-title">${escapeHTML(
+      publication.title
+    )}</span>. `;
 
-    if (publication.url) {
-      return publication.url;
-    }
+    if (publication.journal) {
+      citation += `<em class="publication-journal">${escapeHTML(
+        publication.journal
+      )}</em>`;
 
-
-    return null;
-  }
-
-
-  // ---------------------------------------------------------
-  // Search
-  // ---------------------------------------------------------
-
-  if (publicationSearch) {
-
-    publicationSearch.addEventListener(
-      "input",
-      () => {
-
-        const query =
-          publicationSearch.value
-            .trim()
-            .toLowerCase();
-
-
-        const articles =
-          publicationList.querySelectorAll(
-            ".publication-item"
-          );
-
-
-        let visible = 0;
-
-
-        articles.forEach(article => {
-
-          const matches =
-            !query ||
-            article.dataset.search.includes(query);
-
-
-          article.hidden =
-            !matches;
-
-
-          if (matches) {
-            visible++;
-          }
-        });
-
-
-        // Hide empty year sections
-        const yearSections =
-          publicationList.querySelectorAll(
-            ".publication-year-group"
-          );
-
-
-        yearSections.forEach(section => {
-
-          const visibleArticles =
-            section.querySelectorAll(
-              ".publication-item:not([hidden])"
-            );
-
-
-          section.hidden =
-            visibleArticles.length === 0;
-        });
-
-
-        updateCount(visible, query);
+      if (publication.volume) {
+        citation += `, <em>${escapeHTML(
+          publication.volume
+        )}</em>`;
       }
-    );
+
+      if (publication.number) {
+        citation += `(${escapeHTML(
+          publication.number
+        )})`;
+      }
+
+      if (publication.pages) {
+        citation += `, ${escapeHTML(
+          publication.pages
+        )}`;
+      }
+
+      citation += ".";
+    }
+
+    return citation;
   }
 
 
-  // ---------------------------------------------------------
-  // Publication count
-  // ---------------------------------------------------------
+  /* ==========================================================
+     RENDER PUBLICATIONS
+     ========================================================== */
 
-  function updateCount(count, search = "") {
+  function renderPublications(publications) {
+    publicationList.innerHTML = "";
 
-    if (!publicationCount) {
+    if (!publications.length) {
+      publicationList.innerHTML = `
+        <p class="publication-empty">
+          No publications found.
+        </p>
+      `;
+
+      if (publicationCount) {
+        publicationCount.textContent = "0 publications";
+      }
+
       return;
     }
 
+    if (publicationCount) {
+      publicationCount.textContent =
+        `${publications.length} publication${
+          publications.length === 1 ? "" : "s"
+        }`;
+    }
 
-    publicationCount.textContent =
-      search
-        ? `${count} publication${count === 1 ? "" : "s"} found`
-        : `${count} publication${count === 1 ? "" : "s"}`;
+    /*
+     * Group publications by year
+     */
+
+    const grouped = {};
+
+    publications.forEach(publication => {
+      const year = publication.year || "Unknown year";
+
+      if (!grouped[year]) {
+        grouped[year] = [];
+      }
+
+      grouped[year].push(publication);
+    });
+
+    const years = Object.keys(grouped).sort((a, b) => {
+      const yearA = parseInt(a, 10) || 0;
+      const yearB = parseInt(b, 10) || 0;
+
+      return yearB - yearA;
+    });
+
+
+    years.forEach(year => {
+      const yearHeading = document.createElement("h3");
+
+      yearHeading.className =
+        "publication-year-heading";
+
+      yearHeading.textContent = year;
+
+      publicationList.appendChild(yearHeading);
+
+
+      grouped[year].forEach(publication => {
+        const article =
+          document.createElement("article");
+
+        article.className =
+          "publication-item";
+
+
+        const yearElement =
+          document.createElement("div");
+
+        yearElement.className =
+          "publication-year";
+
+        yearElement.textContent = year;
+
+
+        const content =
+          document.createElement("div");
+
+        content.className =
+          "publication-content";
+
+
+        const citation =
+          document.createElement("p");
+
+        citation.className =
+          "publication-citation";
+
+        citation.innerHTML =
+          createCitation(publication);
+
+
+        content.appendChild(citation);
+
+
+        /*
+         * Publication links
+         */
+
+        const links =
+          document.createElement("div");
+
+        links.className =
+          "publication-links";
+
+
+        if (publication.doi) {
+          const doiLink =
+            document.createElement("a");
+
+          doiLink.className =
+            "publication-link";
+
+          doiLink.href =
+            `https://doi.org/${publication.doi}`;
+
+          doiLink.target = "_blank";
+          doiLink.rel = "noopener noreferrer";
+
+          doiLink.textContent = "DOI →";
+
+          links.appendChild(doiLink);
+        } else if (publication.url) {
+          const publicationLink =
+            document.createElement("a");
+
+          publicationLink.className =
+            "publication-link";
+
+          publicationLink.href =
+            publication.url;
+
+          publicationLink.target = "_blank";
+          publicationLink.rel =
+            "noopener noreferrer";
+
+          publicationLink.textContent =
+            "View publication →";
+
+          links.appendChild(publicationLink);
+        }
+
+
+        if (links.children.length > 0) {
+          content.appendChild(links);
+        }
+
+
+        article.appendChild(yearElement);
+        article.appendChild(content);
+
+        publicationList.appendChild(article);
+      });
+    });
   }
 
 
-  // ---------------------------------------------------------
-  // HTML escaping
-  // ---------------------------------------------------------
+  /* ==========================================================
+     HTML ESCAPING
+     ========================================================== */
 
   function escapeHTML(value) {
-
     return String(value)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
