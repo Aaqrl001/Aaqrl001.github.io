@@ -376,71 +376,47 @@
 
     </div>
 
+<div class="publication-controls">
 
-    <div class="publication-list">
+  <label
+    for="publication-search"
+    class="publication-search-label"
+  >
+    Search publications
+  </label>
 
-      <article class="publication-item">
+  <input
+    type="search"
+    id="publication-search"
+    class="publication-search"
+    placeholder="Search by title, author, journal, or year..."
+    autocomplete="off"
+  >
 
-        <div class="publication-year">
-          2026
-        </div>
+  <div
+    id="publication-count"
+    class="publication-count"
+    aria-live="polite"
+  ></div>
 
-        <div>
+</div> 
 
-          <h3>
-            Publication Title
-          </h3>
+<div
+  id="publication-list"
+  class="publication-list"
+  aria-live="polite"
+>
+  <p class="publication-loading">
+    Loading publications...
+  </p>
+</div>
 
-          <p>
-            Author A., Author B., Author C.
-          </p>
+<div
+  id="publication-error"
+  class="publication-error"
+  hidden
+></div>
 
-          <p>
-            <em>
-              Journal Name
-            </em>
-          </p>
-
-          <a href="#" class="research-card-link">
-            View publication &rarr;
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <article class="publication-item">
-
-        <div class="publication-year">
-          2025
-        </div>
-
-        <div>
-
-          <h3>
-            Publication Title
-          </h3>
-
-          <p>
-            Author A., Author B., Author C.
-          </p>
-
-          <p>
-            <em>
-              Journal Name
-            </em>
-          </p>
-
-          <a href="#" class="research-card-link">
-            View publication &rarr;
-          </a>
-
-        </div>
-
-      </article>
-
-    </div>
 
   </div>
 
