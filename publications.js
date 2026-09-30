@@ -379,113 +379,115 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    years.forEach(year => {
-      const yearHeading = document.createElement("h3");
+    let publicationNumber = publications.length;
 
-      yearHeading.className =
-        "publication-year-heading";
+years.forEach(year => {
+  const yearHeading = document.createElement("h3");
 
-      yearHeading.textContent = year;
+  yearHeading.className =
+    "publication-year-heading";
 
-      publicationList.appendChild(yearHeading);
+  yearHeading.textContent = year;
 
+  publicationList.appendChild(yearHeading);
 
-      grouped[year].forEach(publication => {
-        const article =
-          document.createElement("article");
+  grouped[year].forEach(publication => {
+    const article =
+      document.createElement("article");
 
-        article.className =
-          "publication-item";
+    article.className =
+      "publication-item";
 
+    const numberElement =
+      document.createElement("div");
 
-        const yearElement =
-          document.createElement("div");
+    numberElement.className =
+      "publication-number";
 
-        yearElement.className =
-          "publication-year";
+    numberElement.textContent =
+      `${publicationNumber}.`;
 
-        yearElement.textContent = year;
+    publicationNumber--;
 
+    const yearElement =
+      document.createElement("div");
 
-        const content =
-          document.createElement("div");
+    yearElement.className =
+      "publication-year";
 
-        content.className =
-          "publication-content";
+    yearElement.textContent = year;
 
+    const content =
+      document.createElement("div");
 
-        const citation =
-          document.createElement("p");
+    content.className =
+      "publication-content";
 
-        citation.className =
-          "publication-citation";
+    const citation =
+      document.createElement("p");
 
-        citation.innerHTML =
-          createCitation(publication);
+    citation.className =
+      "publication-citation";
 
+    citation.innerHTML =
+      createCitation(publication);
 
-        content.appendChild(citation);
+    content.appendChild(citation);
 
+    const links =
+      document.createElement("div");
 
-        /*
-         * Publication links
-         */
+    links.className =
+      "publication-links";
 
-        const links =
-          document.createElement("div");
+    if (publication.doi) {
+      const doiLink =
+        document.createElement("a");
 
-        links.className =
-          "publication-links";
+      doiLink.className =
+        "publication-link";
 
+      doiLink.href =
+        `https://doi.org/${publication.doi}`;
 
-        if (publication.doi) {
-          const doiLink =
-            document.createElement("a");
+      doiLink.target = "_blank";
+      doiLink.rel = "noopener noreferrer";
 
-          doiLink.className =
-            "publication-link";
+      doiLink.textContent = "DOI →";
 
-          doiLink.href =
-            `https://doi.org/${publication.doi}`;
+      links.appendChild(doiLink);
 
-          doiLink.target = "_blank";
-          doiLink.rel = "noopener noreferrer";
+    } else if (publication.url) {
+      const publicationLink =
+        document.createElement("a");
 
-          doiLink.textContent = "DOI →";
+      publicationLink.className =
+        "publication-link";
 
-          links.appendChild(doiLink);
-        } else if (publication.url) {
-          const publicationLink =
-            document.createElement("a");
+      publicationLink.href =
+        publication.url;
 
-          publicationLink.className =
-            "publication-link";
+      publicationLink.target = "_blank";
+      publicationLink.rel =
+        "noopener noreferrer";
 
-          publicationLink.href =
-            publication.url;
+      publicationLink.textContent =
+        "View publication →";
 
-          publicationLink.target = "_blank";
-          publicationLink.rel =
-            "noopener noreferrer";
+      links.appendChild(publicationLink);
+    }
 
-          publicationLink.textContent =
-            "View publication →";
+    if (links.children.length > 0) {
+      content.appendChild(links);
+    }
 
-          links.appendChild(publicationLink);
-        }
+    article.appendChild(numberElement);
+    article.appendChild(yearElement);
+    article.appendChild(content);
 
-
-        if (links.children.length > 0) {
-          content.appendChild(links);
-        }
-
-
-        article.appendChild(yearElement);
-        article.appendChild(content);
-
-        publicationList.appendChild(article);
-      });
-    });
+    publicationList.appendChild(article);
+  });
+});
   }
 
 
