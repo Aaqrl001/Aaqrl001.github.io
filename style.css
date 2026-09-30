@@ -355,7 +355,7 @@ button:focus-visible {
 .pi-caption {
   display: block;
 
-  width: 160px;
+  width: max-content;
 
   margin-top: 16px;
 
@@ -366,10 +366,11 @@ button:focus-visible {
   display: block;
 
   margin: 0;
+  white-space: nowrap;
 
   font-family: var(--serif);
 
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 600;
 
   line-height: 1.3;
