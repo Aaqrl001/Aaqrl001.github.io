@@ -305,11 +305,10 @@ button:focus-visible {
 /* ============================================================
    ABOUT / PI BLOCK
    ============================================================ */
-
 .about-block {
   display: grid;
 
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 1fr 160px;
 
   gap: 50px;
 
@@ -317,11 +316,13 @@ button:focus-visible {
 }
 
 .pi-column {
-  width: 280px;
+  width: 160px;
+
+  justify-self: end;
 }
 
 .pi-column .logo-box {
-  width: 280px;
+  width: 160px;
   height: auto;
 
   margin: 0;
@@ -335,7 +336,7 @@ button:focus-visible {
 }
 
 .pi-column .logo-box img {
-  width: 280px;
+  width: 160px;
   height: auto;
 
   display: block;
@@ -346,7 +347,7 @@ button:focus-visible {
 .pi-caption {
   display: block;
 
-  width: 280px;
+  width: 160px;
 
   margin-top: 16px;
 
