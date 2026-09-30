@@ -315,8 +315,14 @@ button:focus-visible {
   align-items: start;
 }
 
+.about-content {
+  grid-column: 1;
+}
+
 .pi-column {
   width: 160px;
+
+  grid-column: 2;
 
   justify-self: end;
 }
