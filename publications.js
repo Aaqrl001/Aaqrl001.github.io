@@ -407,9 +407,6 @@ years.forEach(year => {
       <span class="publication-number">
         ${publicationNumber}.
       </span>
-      <span class="publication-year-value">
-        ${escapeHTML(year)}
-      </span>
     `;
 
     publicationNumber--;
