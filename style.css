@@ -317,12 +317,14 @@ button:focus-visible {
 
 .about-content {
   grid-column: 1;
+  grid-row: 1;
 }
 
 .pi-column {
   width: 160px;
 
   grid-column: 2;
+  grid-row: 1;
 
   justify-self: end;
 }
@@ -389,6 +391,7 @@ button:focus-visible {
 
   color: var(--accent-dark);
 }
+
 
 
 /* ============================================================
