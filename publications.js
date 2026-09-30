@@ -378,8 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return yearB - yearA;
     });
 
-
-    let publicationNumber = publications.length;
+let publicationNumber = publications.length;
 
 years.forEach(year => {
   const yearHeading = document.createElement("h3");
@@ -398,24 +397,22 @@ years.forEach(year => {
     article.className =
       "publication-item";
 
-    const numberElement =
-      document.createElement("div");
-
-    numberElement.className =
-      "publication-number";
-
-    numberElement.textContent =
-      `${publicationNumber}.`;
-
-    publicationNumber--;
-
     const yearElement =
       document.createElement("div");
 
     yearElement.className =
       "publication-year";
 
-    yearElement.textContent = year;
+    yearElement.innerHTML = `
+      <span class="publication-number">
+        ${publicationNumber}.
+      </span>
+      <span class="publication-year-value">
+        ${escapeHTML(year)}
+      </span>
+    `;
+
+    publicationNumber--;
 
     const content =
       document.createElement("div");
@@ -481,7 +478,6 @@ years.forEach(year => {
       content.appendChild(links);
     }
 
-    article.appendChild(numberElement);
     article.appendChild(yearElement);
     article.appendChild(content);
 
