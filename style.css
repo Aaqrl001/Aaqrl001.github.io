@@ -318,6 +318,11 @@ button:focus-visible {
   min-width: 0;
 }
 
+.about-content p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
 .pi-column {
   width: 200px;
   grid-column: 2;
