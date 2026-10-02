@@ -307,15 +307,15 @@ button:focus-visible {
    ============================================================ */
 .about-block {
   display: grid;
-  grid-template-columns: auto 200px;
-  column-gap: 10px;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  column-gap: 12px;
   align-items: start;
-  margin-bottom: 30px;
 }
 
 .about-content {
   grid-column: 1;
   grid-row: 1;
+  min-width: 0;
 }
 
 .pi-column {
@@ -323,7 +323,6 @@ button:focus-visible {
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
-  /*transform: translateX(-15px); */
 }
 
 .pi-column .logo-box {
@@ -363,18 +362,14 @@ button:focus-visible {
 
 .pi-caption span {
   display: block;
-
   margin-top: 5px;
-
   font-family: var(--sans);
-
   font-size: 13px;
   font-weight: 500;
-
   line-height: 1.4;
-
   color: var(--accent-dark);
 }
+
 
 
 
