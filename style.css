@@ -307,8 +307,8 @@ button:focus-visible {
    ============================================================ */
 .about-block {
   display: grid;
-  grid-template-columns: 600 250px;
-  column-gap: 5px;
+  grid-template-columns: 600px 250px;
+  column-gap: 10 px;
   align-items: start;
 }
 
