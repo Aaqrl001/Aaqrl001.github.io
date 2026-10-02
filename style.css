@@ -310,7 +310,7 @@ button:focus-visible {
 
   grid-template-columns: 1fr 160px;
 
-  gap: 50px;
+  gap: 20px;
 
   align-items: start;
 }
