@@ -322,7 +322,7 @@ button:focus-visible {
   width: 200px;
   grid-column: 2;
   grid-row: 1;
-  justify-self: end;
+  justify-self: start;
 }
 
 .pi-column .logo-box {
