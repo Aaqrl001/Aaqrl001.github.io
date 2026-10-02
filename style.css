@@ -895,7 +895,6 @@ button:focus-visible {
   margin-top: 34px;
   padding-top: 30px;
 
-  border-top: 1px solid var(--line);
 }
 
 .stat-strip .num {
