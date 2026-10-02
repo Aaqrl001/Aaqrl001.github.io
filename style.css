@@ -307,7 +307,7 @@ button:focus-visible {
    ============================================================ */
 .about-block {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 200px;
+  grid-template-columns: auto 200px;
   column-gap: 10px;
   align-items: start;
   margin-bottom: 30px;
@@ -320,59 +320,44 @@ button:focus-visible {
 
 .pi-column {
   width: 200px;
-
   grid-column: 2;
   grid-row: 1;
-
   justify-self: end;
+  /*transform: translateX(-15px); */
 }
 
 .pi-column .logo-box {
   width: 200px;
   height: auto;
-
   margin: 0;
   padding: 0;
-
   border: none;
-
   background: transparent;
-
   overflow: visible;
 }
 
 .pi-column .logo-box img {
   width: 200px;
   height: auto;
-
   display: block;
-
   position: static;
 }
 
 .pi-caption {
   display: block;
-
   width: max-content;
-
   margin-top: 16px;
-
   text-align: left;
 }
 
 .pi-caption strong {
   display: block;
-
   margin: 0;
   white-space: nowrap;
-
   font-family: var(--serif);
-
   font-size: 22px;
   font-weight: 600;
-
   line-height: 1.3;
-
   color: var(--ink);
 }
 
