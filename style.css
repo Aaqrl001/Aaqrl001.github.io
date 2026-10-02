@@ -307,7 +307,7 @@ button:focus-visible {
    ============================================================ */
 .about-block {
   display: grid;
-  grid-template-columns: 500 200px;
+  grid-template-columns: 500 250px;
   column-gap: 0px;
   align-items: start;
 }
@@ -319,19 +319,19 @@ button:focus-visible {
 }
 
 .about-content p {
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.7;
 }
 
 .pi-column {
-  width: 200px;
+  width: 250px;
   grid-column: 2;
   grid-row: 1;
   justify-self: start;
 }
 
 .pi-column .logo-box {
-  width: 200px;
+  width: 250px;
   height: auto;
   margin: 0;
   padding: 0;
@@ -341,7 +341,7 @@ button:focus-visible {
 }
 
 .pi-column .logo-box img {
-  width: 200px;
+  width: 250px;
   height: auto;
   display: block;
   position: static;
@@ -367,7 +367,7 @@ button:focus-visible {
 
 .pi-caption span {
   display: block;
-  margin-top: 5px;
+  margin-top: 4px;
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 500;
