@@ -436,58 +436,94 @@
 
 
 
-<section
-  class="section section-alt"
-  id="patents"
->
-
+<section class="section section-alt" id="patents">
   <div class="wrap">
 
     <div class="section-head">
-
       <div>
-
-        <h2>
-          Patents
-        </h2>
-
+        <h2>Patents</h2>
         <p class="desc">
           Patents and intellectual property arising from
           laboratory research.
         </p>
-
       </div>
-
     </div>
 
+    <div class="publication-controls">
+      <label for="patents-search" class="publication-search-label">
+        Search patents
+      </label>
 
-    <div class="card-grid">
+      <input
+        type="search"
+        id="patents-search"
+        class="publication-search"
+        placeholder="Search by title, inventor, number, or year..."
+        autocomplete="off"
+      >
 
-      <div class="info-card">
-
-        <span
-          class="tag"
-          style="background:var(--aqi-purple)"
-        ></span>
-
-        <h3>
-          Patent Title
-        </h3>
-
-        <p>
-          Add patent information, inventors,
-          filing date, and related technology here.
-        </p>
-
-      </div>
-
+      <div id="patents-count"
+           class="publication-count"
+           aria-live="polite"></div>
     </div>
+
+    <div id="patents-list" class="publication-list"
+         aria-live="polite">
+      <p class="publication-loading">Loading patents...</p>
+    </div>
+
+    <div id="patents-error" class="publication-error" hidden></div>
 
   </div>
-
 </section>
 
 
+
+
+<section class="section" id="books_chapters">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div>
+        <h2>Books and Chapters</h2>
+        <p class="desc">
+          Books and book chapters authored or co-authored
+          by members of AAQRL.
+        </p>
+      </div>
+    </div>
+
+    <div class="publication-controls">
+      <label for="books-search" class="publication-search-label">
+        Search books and chapters
+      </label>
+
+      <input
+        type="search"
+        id="books-search"
+        class="publication-search"
+        placeholder="Search by title, author, publisher, or year..."
+        autocomplete="off"
+      >
+
+      <div id="books-count"
+           class="publication-count"
+           aria-live="polite"></div>
+    </div>
+
+    <div id="books-list" class="publication-list"
+         aria-live="polite">
+      <p class="publication-loading">
+        Loading books and chapters...
+      </p>
+    </div>
+
+    <div id="books-error" class="publication-error" hidden></div>
+
+  </div>
+</section>
+
+  
 
 <footer class="site-footer">
 
