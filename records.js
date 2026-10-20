@@ -97,18 +97,38 @@ async function setupRecordList({
           const content = document.createElement("div");
           content.className = "publication-content";
 
-          const citation = document.createElement("p");
-          citation.className = "publication-citation";
+          
+const fields = [
+  ["Title", record.title],
+  ["Name", record.authors],
+  ["Patent Number", record.patentNumber],
+  ["Assignee", record.assignee],
+  ["Licensee", record.licensee],
+  ["Status", record.status],
+  ["Grant Date", record.grantDate],
+  ["Year", record.year]
+];
 
-          citation.textContent = record.citation ||
-         `${record.authors || ""}. (${record.year || "Year not specified"}). ` +
-         `${record.title || "Untitled record"}. ` +
-         `${record.patentNumber || ""}. ` +
-         `Assignee: ${record.assignee || ""}. ` +
-         `Status: ${record.status || ""}. ` +
-         `${record.grantDate ? "Granted " + record.grantDate + "." : ""}`;
+const details = document.createElement("div");
+details.className = "patent-details";
 
-          content.appendChild(citation);
+fields.forEach(([label, value]) => {
+  if (value !== undefined && value !== null && value !== "") {
+    const line = document.createElement("p");
+    line.className = "patent-detail-line";
+
+    const strong = document.createElement("strong");
+    strong.textContent = `${label}: `;
+
+    line.appendChild(strong);
+    line.appendChild(document.createTextNode(value));
+
+    details.appendChild(line);
+  }
+});
+
+content.appendChild(details);
+
 
           if (record.url) {
             const links = document.createElement("div");
