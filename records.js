@@ -99,7 +99,14 @@ async function setupRecordList({
 
           const citation = document.createElement("p");
           citation.className = "publication-citation";
-          citation.textContent = record.citation || record.title || "Untitled record";
+
+          citation.textContent = record.citation ||
+         `${record.authors || ""}. (${record.year || "Year not specified"}). ` +
+         `${record.title || "Untitled record"}. ` +
+         `${record.patentNumber || ""}. ` +
+         `Assignee: ${record.assignee || ""}. ` +
+         `Status: ${record.status || ""}. ` +
+         `${record.grantDate ? "Granted " + record.grantDate + "." : ""}`;
 
           content.appendChild(citation);
 
