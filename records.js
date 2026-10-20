@@ -188,20 +188,6 @@ async function setupRecordList({
 
             content.appendChild(details);
 
-            if (record.url) {
-              const links = document.createElement("div");
-              links.className = "publication-links";
-
-              const link = document.createElement("a");
-              link.href = record.url;
-              link.target = "_blank";
-              link.rel = "noopener noreferrer";
-              link.className = "publication-link";
-              link.textContent = "Patent →";
-
-              links.appendChild(link);
-              content.appendChild(links);
-            }
           }
 
           article.appendChild(number);
