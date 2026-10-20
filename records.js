@@ -12,6 +12,7 @@ async function setupRecordList({
   const count = document.getElementById(countId);
   const error = document.getElementById(errorId);
 
+  // Skip this list if its elements are not on the current page.
   if (!search || !list || !count || !error) return;
 
   try {
@@ -32,7 +33,15 @@ async function setupRecordList({
       if (year) return year[0];
 
       const date = String(record.date || "").match(/\b\d{4}\b/);
-      return date ? date[0] : "Year not specified";
+      if (date) return date[0];
+
+      // Extract the year from a citation if necessary.
+      const citation = String(record.citation || "");
+      const citationYear = citation.match(/\((\d{4})\)/);
+
+      if (citationYear) return citationYear[1];
+
+      return "Year not specified";
     }
 
     function render() {
@@ -44,8 +53,14 @@ async function setupRecordList({
         )
       );
 
+      const countLabel =
+        kind === "book or chapter"
+          ? "book or chapter"
+          : "patent";
+
       count.textContent =
-        `${filtered.length} ${kind}${filtered.length === 1 ? "" : "s"}`;
+        `${filtered.length} ${countLabel}` +
+        (filtered.length === 1 ? "" : "s");
 
       list.replaceChildren();
 
@@ -73,6 +88,7 @@ async function setupRecordList({
       const sortedYears = [...groups.keys()].sort((a, b) => {
         if (a === "Year not specified") return 1;
         if (b === "Year not specified") return -1;
+
         return Number(b) - Number(a);
       });
 
@@ -84,69 +100,108 @@ async function setupRecordList({
 
         const yearRecords = groups.get(year);
 
-        // Number entries in reverse order within each year,
-        // matching the style of the journal list.
         yearRecords.forEach((record, index) => {
           const article = document.createElement("article");
-          article.className = "publication-item publication-record";
+          article.className =
+            "publication-item publication-record";
 
           const number = document.createElement("span");
           number.className = "publication-record-number";
-          number.textContent = `${yearRecords.length - index}.`;
+
+          // Use the explicit number if supplied in the JSON.
+          // Otherwise, number entries within the year.
+          number.textContent =
+            record.number != null && record.number !== ""
+              ? `${record.number}.`
+              : `${yearRecords.length - index}.`;
 
           const content = document.createElement("div");
           content.className = "publication-content";
 
-          
-const fields = [
-  ["Title", record.title],
-  ["Name", record.authors],
-  ["Patent Number", record.patentNumber],
-  ["Assignee", record.assignee],
-  ["Licensee", record.licensee],
-  ["Status", record.status],
-  ["Grant Date", record.grantDate],
-  ["Year", record.year]
-];
+          // BOOKS AND CHAPTERS
+          // Display the complete citation instead of patent fields.
+          if (kind === "book or chapter") {
+            const citation = document.createElement("p");
+            citation.className = "publication-citation";
+            citation.textContent =
+              record.citation || record.title || "Citation unavailable.";
 
-const details = document.createElement("div");
-details.className = "patent-details";
+            content.appendChild(citation);
 
-fields.forEach(([label, value]) => {
-  if (value !== undefined && value !== null && value !== "") {
-    const line = document.createElement("p");
-    line.className = "patent-detail-line";
+            // Prefer the DOI URL, then fall back to the general URL.
+            const doiUrl = record.doi || record.url;
 
-    const strong = document.createElement("strong");
-    strong.textContent = `${label}: `;
+            if (doiUrl) {
+              const links = document.createElement("div");
+              links.className = "publication-links";
 
-    line.appendChild(strong);
-    line.appendChild(document.createTextNode(value));
+              const link = document.createElement("a");
+              link.href = doiUrl;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.className = "publication-link";
 
-    details.appendChild(line);
-  }
-});
+              link.textContent = record.doi
+                ? "DOI →"
+                : "View publication →";
 
-content.appendChild(details);
+              links.appendChild(link);
+              content.appendChild(links);
+            }
+          } else {
+            // PATENTS
+            // Preserve the existing patent details layout.
+            const fields = [
+              ["Title", record.title],
+              ["Name", record.authors],
+              ["Patent Number", record.patentNumber],
+              ["Assignee", record.assignee],
+              ["Licensee", record.licensee],
+              ["Status", record.status],
+              ["Grant Date", record.grantDate],
+              ["Year", record.year]
+            ];
 
+            const details = document.createElement("div");
+            details.className = "patent-details";
 
-          if (record.url) {
-            const links = document.createElement("div");
-            links.className = "publication-links";
+            fields.forEach(([label, value]) => {
+              if (
+                value !== undefined &&
+                value !== null &&
+                value !== ""
+              ) {
+                const line = document.createElement("p");
+                line.className = "patent-detail-line";
 
-            const link = document.createElement("a");
-            link.href = record.url;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.className = "publication-link";
+                const strong = document.createElement("strong");
+                strong.textContent = `${label}: `;
 
-            link.textContent =
-              kind === "patent" ? "Patent →" :
-              record.doi ? "DOI →" :
-              "View publication →";
+                line.appendChild(strong);
+                line.appendChild(
+                  document.createTextNode(String(value))
+                );
 
-            links.appendChild(link);
-            content.appendChild(links);
+                details.appendChild(line);
+              }
+            });
+
+            content.appendChild(details);
+
+            if (record.url) {
+              const links = document.createElement("div");
+              links.className = "publication-links";
+
+              const link = document.createElement("a");
+              link.href = record.url;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.className = "publication-link";
+              link.textContent = "Patent →";
+
+              links.appendChild(link);
+              content.appendChild(links);
+            }
           }
 
           article.appendChild(number);
@@ -160,14 +215,18 @@ content.appendChild(details);
     render();
 
   } catch (err) {
-    console.error(err);
+    console.error(`Error loading ${file}:`, err);
+
     error.hidden = false;
     error.textContent =
       `Unable to load ${kind} records. Check the data file and try again.`;
+
     list.replaceChildren();
   }
 }
 
+
+// Patent records
 setupRecordList({
   file: "patents.json",
   searchId: "patents-search",
@@ -177,6 +236,8 @@ setupRecordList({
   kind: "patent"
 });
 
+
+// Books and chapters
 setupRecordList({
   file: "books-chapters.json",
   searchId: "books-search",
