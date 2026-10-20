@@ -157,7 +157,6 @@ async function setupRecordList({
               ["Patent Number", record.patentNumber],
               ["Assignee", record.assignee],
               ["Licensee", record.licensee],
-              ["Status", record.status],
               ["Grant Date", record.grantDate],
               ["Year", record.year]
             ];
