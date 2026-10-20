@@ -1,18 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Books &amp; Chapters</h1>
+<head>
 
-<p><a href="publications.html">← Back to Publications</a></p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<input
-  type="search"
-  id="books-search"
-  placeholder="Search books and chapters..."
-/>
+<title>Books and Chapters | Aerosol and Air Quality Research Laboratory</title>
 
-<p id="books-count"></p>
-<p id="books-error" hidden></p>
+<meta
+  name="description"
+  content="Books and book chapters authored or co-authored by members of the Aerosol and Air Quality Research Laboratory."
+>
 
-<div id="books-list"></div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+  <div class="wrap header-top">
+
+    <a href="index.html" class="logo-box">
+      <img
+        src="images/VU_Centered_Black.png"
+        alt="Vanderbilt University logo"
+      >
+    </a>
+
+    <div class="header-titles">
+
+      <span class="college">
+        SCHOOL OF ENGINEERING
+      </span>
+
+      <span class="lab-name">
+        AEROSOL AND AIR QUALITY RESEARCH LABORATORY
+      </span>
+
+    </div>
+
+    <a href="index.html" class="aaqrl-logo">
+
+      <img
+        src="images/AAQRL_Logo.jpg"
+        alt="Aerosol and Air Quality Research Laboratory logo"
+      >
+
+    </a>
+
+  </div>
+
+</header>
+
+
+
+<nav class="site-nav">
+
+  <div class="wrap nav-inner">
+
+    <button
+      class="nav-toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      &#9776;
+    </button>
+
+    <ul class="nav-links">
+
+      <!-- HOME -->
+      <li>
+        <a class="nav-link" href="index.html">
+          Home
+        </a>
+      </li>
+
+
+      <!-- About -->
+      <li>
+        <a class="nav-link" href="about.html">About</a>
+      </li>
+
+
+      <!-- RESEARCH -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="research.html">
+          Research
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="research/aerosol-instrumentation.html">
+              Aerosol Instrumentation &amp; Fundamentals
+            </a>
+          </li>
+
+          <li>
+            <a href="research/air-quality-bioaerosols.html">
+              Air Quality &amp; Bioaerosols
+            </a>
+          </li>
+
+          <li>
+            <a href="research/aerosols-health-care.html">
+              Aerosols in Health Care
+            </a>
+          </li>
+
+          <li>
+            <a href="research/nanoparticle-synthesis.html">
+              Nanoparticle Synthesis &amp; Applications
+            </a>
+          </li>
+
+          <li>
+            <a href="research/combustion.html">
+              Combustion
+            </a>
+          </li>
+
+          <li>
+            <a href="research/aerosol-3d-printing.html">
+              Aerosol Assisted 3D Printing
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- PEOPLE -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="people.html">
+          People
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="people.html#faculty">
+              Current Members
+            </a>
+          </li>
+
+          <li>
+            <a href="people.html#alumni">
+              Alumni
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- PUBLICATIONS -->
+      <li class="has-dropdown">
+
+        <a class="nav-link active" href="publications.html">
+          Publications
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="publications.html#journal">
+              Journal Articles
+            </a>
+          </li>
+
+          <li>
+            <a href="patents.html">
+              Patents
+            </a>
+          </li>
+
+          <li>
+            <a href="book-chapters.html">
+              Books and Chapters
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- NEWS -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="news.html">
+          News and Events
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="news.html#news">
+              Lab News
+            </a>
+          </li>
+
+          <li>
+            <a href="news.html#events">
+              Events &amp; Seminars
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- EDUCATION -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="education.html">
+          Education
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="education.html#courses">
+              Courses
+            </a>
+          </li>
+
+          <li>
+            <a href="education.html#education-resources">
+              Aerosol Education Resources
+            </a>
+          </li>
+
+          <li>
+            <a href="education.html#students">
+              Student Opportunities
+            </a>
+          </li>
+
+          <li>
+            <a href="education.html#outreach">
+              Outreach &amp; Training
+            </a>
+          </li>
+
+          <li>
+            <a href="education.html#aaar-art">
+              AAAR Art Submissions
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- FACILITIES -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="facilities.html">
+          Facilities
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="facilities.html#laboratories">
+              Aerosol &amp; Particle Instrumentation
+            </a>
+          </li>
+
+          <li>
+            <a href="facilities.html#combustion-systems">
+              Combustion Systems
+            </a>
+          </li>
+
+          <li>
+            <a href="facilities.html#nanoparticle-systems">
+              Nanoparticle Synthesis Systems
+            </a>
+          </li>
+
+          <li>
+            <a href="facilities.html#energy-systems">
+              Solar Energy &amp; Energy Storage
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+      <!-- STARTUPS -->
+      <li class="has-dropdown">
+
+        <a class="nav-link" href="startups.html">
+          Startups
+        </a>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="startups.html#apt">
+              Applied Particle Technology
+            </a>
+          </li>
+
+          <li>
+            <a href="startups.html#sat">
+              Smart Aerosol Technologies
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<div class="aqi-rule"></div>
+
+
+
+<section class="page-header">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      AEROSOL AND AIR QUALITY RESEARCH LABORATORY
+    </div>
+
+    <h1>Books and Chapters</h1>
+
+    <p>
+      Books and book chapters authored or co-authored
+      by members of AAQRL.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="section" id="books_chapters">
+
+  <div class="wrap">
+
+    <div class="section-head">
+      <div>
+        <h2>Books and Chapters</h2>
+
+        <p class="desc">
+          Scholarly books and book chapters from the laboratory.
+        </p>
+      </div>
+    </div>
+
+    <div class="publication-controls">
+
+      <label for="books-search"
+             class="publication-search-label">
+        Search books and chapters
+      </label>
+
+      <input
+        type="search"
+        id="books-search"
+        class="publication-search"
+        placeholder="Search by title, author, publisher, or year..."
+        autocomplete="off"
+      >
+
+      <div
+        id="books-count"
+        class="publication-count"
+        aria-live="polite"
+      ></div>
+
+    </div>
+
+    <div
+      id="books-list"
+      class="publication-list"
+      aria-live="polite"
+    >
+      <p class="publication-loading">
+        Loading books and chapters...
+      </p>
+    </div>
+
+    <div
+      id="books-error"
+      class="publication-error"
+      hidden
+    ></div>
+
+  </div>
+
+</section>
+
+
+
+
+
+  
+
+<footer class="site-footer">
+
+  <div class="wrap footer-top">
+
+    <a href="index.html" class="logo-box">
+
+      <img
+        src="images/VU_Centered_Black.png"
+        alt="Vanderbilt University logo"
+      >
+
+    </a>
+
+    <span class="footer-lab-name">
+      Aerosol and Air Quality Research Laboratory
+    </span>
+
+  </div>
+
+
+  <div class="wrap footer-address">
+
+    <span>
+      Chemical and Biomolecular Engineering,
+      The Engineering and Science Building,
+      2414 Highland Ave, Nashville, TN 37212
+    </span>
+
+    <a
+      class="map-link"
+      href="https://www.google.com/maps/search/?api=1&query=Chemical+and+Biomolecular+Engineering%2C+The+Engineering+and+Science+Building%2C+2414+Highland+Ave%2C+Nashville%2C+TN+37212"
+      target="_blank"
+      rel="noopener"
+    >
+      View on map &rarr;
+    </a>
+
+  </div>
+
+
+  <div class="footer-bottom wrap">
+
+    &copy; 2026 Aerosol and Air Quality Research Laboratory.
+    All rights reserved.
+
+  </div>
+
+</footer>
+
+
+<script src="main.js"></script>
+<script src="publications.js"></script>
 <script src="records.js"></script>
-<script src="books-chapters-page.js"></script>
+
+</body>
+
+</html>
