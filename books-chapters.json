@@ -1,20 +1,10 @@
 [
   {
-    "type": "Book",
-    "title": "Your Book Title",
-    "authors": "Author One, Author Two",
-    "publisher": "Publisher Name",
-    "year": "2024",
-    "details": "",
+    "citation": "Author One, Author Two. (2024). Your Book Title. Publisher Name.",
     "url": "https://example.com/"
   },
   {
-    "type": "Book Chapter",
-    "title": "Your Chapter Title",
-    "authors": "Author One",
-    "publisher": "Publisher Name",
-    "year": "2023",
-    "details": "In: Book Title, pp. 10-25",
+    "citation": "Author One. (2023). Your Chapter Title. In: Book Title, Publisher Name, pp. 10-25.",
     "url": ""
   }
 ]
