@@ -92,6 +92,8 @@ async function setupRecordList({
         return Number(b) - Number(a);
       });
 
+      let continuousNumber = filtered.length;
+
       sortedYears.forEach(year => {
         const heading = document.createElement("h3");
         heading.className = "publication-year-heading";
@@ -108,12 +110,13 @@ async function setupRecordList({
           const number = document.createElement("span");
           number.className = "publication-record-number";
 
-          // Use the explicit number if supplied in the JSON.
-          // Otherwise, number entries within the year.
+          // Continuous numbering: newest gets the highest number.
           number.textContent =
             record.number != null && record.number !== ""
-              ? `${record.number}.`
-              : `${yearRecords.length - index}.`;
+            ? `${record.number}.`
+            : `${continuousNumber}.`;
+
+          continuousNumber--;
 
           const content = document.createElement("div");
           content.className = "publication-content";
