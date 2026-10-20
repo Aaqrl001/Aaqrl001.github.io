@@ -51,45 +51,23 @@ async function setupRecordList({
         const article = document.createElement("article");
         article.className = "publication-item";
 
-        const title = document.createElement("h3");
-        title.textContent = record.title || "Untitled";
-        article.appendChild(title);
+        const citation = document.createElement("p");
+        citation.className = "publication-citation";
+        citation.textContent = record.citation;
+        article.appendChild(citation);
 
-        const metadata = document.createElement("p");
-        metadata.className = "publication-details";
+if (record.url) {
+  const link = document.createElement("a");
+  link.href = record.url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.className = "publication-link";
+  link.textContent = kind === "patent" ? "Patent →" : "DOI →";
+  article.appendChild(link);
+}
 
-        const fields = kind === "patent"
-          ? [record.inventors, record.number, record.status, record.year]
-          : [record.type, record.authors, record.publisher,
-             record.year, record.details];
-
-        metadata.textContent = fields.filter(Boolean).join(" · ");
-        article.appendChild(metadata);
-
-        if (record.url) {
-          try {
-            const url = new URL(record.url, window.location.href);
-
-            if (["https:", "http:"].includes(url.protocol)) {
-              const link = document.createElement("a");
-              link.href = url.href;
-              link.target = "_blank";
-              link.rel = "noopener noreferrer";
-              link.className = "publication-link";
-              link.textContent = kind === "patent"
-                ? "View Patent →"
-                : "View Publication →";
-
-              article.appendChild(link);
-            }
-          } catch {
-            // Skip invalid URLs.
-          }
-        }
-
-        list.appendChild(article);
-      });
-    }
+list.appendChild(article);
+}
 
     search.addEventListener("input", render);
     render();
