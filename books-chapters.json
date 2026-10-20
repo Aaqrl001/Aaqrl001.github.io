@@ -1,10 +1,12 @@
 [
   {
-    "citation": "Author One, Author Two. (2024). Your Book Title. Publisher Name.",
-    "url": "https://example.com/"
+    "citation": "Luo, H., Yang, P., Huang, J., Chen, C., Cai, N., Qin, Y., Akpowu, G. A., Yu, Y., Gao, T., Biswas, P., & Luo, C. (2026). Spherical Lignin-Derived Hard Carbon Anode for Sodium-Ion Batteries. ChemSusChem, 19(15).",
+    "doi": "https://doi.org/your-doi-here",
+    "year": 2026
   },
   {
-    "citation": "Author One. (2023). Your Chapter Title. In: Book Title, Publisher Name, pp. 10-25.",
-    "url": ""
+    "citation": "O’Neil, C. A., Li, J., Wallace, M. A., Raliya, R., Wang, Y., Leavey, A., Bricker, T. L., Burnham, C. D., Boon, A. C., Biswas, P., & Babcock, H. M. (2026). Characterization of aerosols generated during suspected aerosol-generating procedures in healthcare settings. Antimicrobial Stewardship and Healthcare Epidemiology, 6(1).",
+    "doi": "https://doi.org/your-doi-here",
+    "year": 2026
   }
 ]
