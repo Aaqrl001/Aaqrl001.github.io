@@ -1,0 +1,20 @@
+[
+  {
+    "type": "Book",
+    "title": "Your Book Title",
+    "authors": "Author One, Author Two",
+    "publisher": "Publisher Name",
+    "year": "2024",
+    "details": "",
+    "url": "https://example.com/"
+  },
+  {
+    "type": "Book Chapter",
+    "title": "Your Chapter Title",
+    "authors": "Author One",
+    "publisher": "Publisher Name",
+    "year": "2023",
+    "details": "In: Book Title, pp. 10-25",
+    "url": ""
+  }
+]
