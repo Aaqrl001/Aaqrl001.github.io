@@ -131,22 +131,17 @@ async function setupRecordList({
 
             content.appendChild(citation);
 
-            // Prefer the DOI URL, then fall back to the general URL.
-            const doiUrl = record.doi || record.url;
-
-            if (doiUrl) {
+            // Display a DOI link only when a DOI is provided.
+           if (record.doi && record.doi.trim() !== "") {
               const links = document.createElement("div");
               links.className = "publication-links";
 
               const link = document.createElement("a");
-              link.href = doiUrl;
+              link.href = record.doi;
               link.target = "_blank";
               link.rel = "noopener noreferrer";
               link.className = "publication-link";
-
-              link.textContent = record.doi
-                ? "DOI →"
-                : "View publication →";
+              link.textContent = "DOI →";
 
               links.appendChild(link);
               content.appendChild(links);
