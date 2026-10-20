@@ -12,11 +12,16 @@ async function setupRecordList({
   const count = document.getElementById(countId);
   const error = document.getElementById(errorId);
 
+  if (!search || !list || !count || !error) {
+    console.error(`Missing HTML elements for ${file}`);
+    return;
+  }
+
   try {
     const response = await fetch(file);
 
     if (!response.ok) {
-      throw new Error(`Could not load ${file}`);
+      throw new Error(`Could not load ${file}: ${response.status}`);
     }
 
     const records = await response.json();
@@ -34,8 +39,12 @@ async function setupRecordList({
         )
       );
 
+      const label = kind === "patent"
+        ? "patent"
+        : "book or chapter";
+
       count.textContent =
-        `${filtered.length} ${kind}${filtered.length === 1 ? "" : "s"}`;
+        `${filtered.length} ${label}${filtered.length === 1 ? "" : "s"}`;
 
       list.replaceChildren();
 
@@ -51,35 +60,53 @@ async function setupRecordList({
         const article = document.createElement("article");
         article.className = "publication-item";
 
+        // Full citation on one line/paragraph
         const citation = document.createElement("p");
         citation.className = "publication-citation";
-        citation.textContent = record.citation;
+        citation.textContent = record.citation || record.title || "";
         article.appendChild(citation);
 
-if (record.url) {
-  const link = document.createElement("a");
-  link.href = record.url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.className = "publication-link";
-  link.textContent = kind === "patent" ? "Patent →" : "DOI →";
-  article.appendChild(link);
-}
+        // Link to the patent or publication
+        if (record.url) {
+          try {
+            const url = new URL(record.url, window.location.href);
 
-list.appendChild(article);
-}
+            if (url.protocol === "https:" || url.protocol === "http:") {
+              const link = document.createElement("a");
+              link.href = url.href;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.className = "publication-link";
+              link.textContent =
+                kind === "patent" ? "Patent →" : "DOI →";
+
+              article.appendChild(link);
+            }
+          } catch (err) {
+            console.warn("Invalid publication URL:", record.url);
+          }
+        }
+
+        list.appendChild(article);
+      });
+    }
 
     search.addEventListener("input", render);
     render();
+
   } catch (err) {
-    console.error(err);
+    console.error(`Error loading ${file}:`, err);
+
     error.hidden = false;
     error.textContent =
-      `Unable to load ${kind} records. Check the data file and try again.`;
+      `Unable to load ${kind} records. Check ${file} and try again.`;
+
     list.replaceChildren();
+    count.textContent = "";
   }
 }
 
+// Load patents
 setupRecordList({
   file: "patents.json",
   searchId: "patents-search",
@@ -89,6 +116,7 @@ setupRecordList({
   kind: "patent"
 });
 
+// Load books and chapters
 setupRecordList({
   file: "books-chapters.json",
   searchId: "books-search",
