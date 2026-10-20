@@ -1237,6 +1237,41 @@ button:focus-visible {
   border-color: var(--accent-dark);
 }
 
+
+/* ============================================================
+   PATENTS & BOOK CHAPTERS
+   Reuse the existing publication layout
+   ============================================================ */
+
+/* Optional category-specific accent colors */
+.badge-patent {
+  background: rgba(46, 125, 140, 0.12);
+  color: var(--accent-dark);
+}
+.badge-book-chapter {
+  background: rgba(139, 95, 163, 0.12);
+  color: #6A4485;
+}
+/* Patent numbers and book details */
+.publication-citation .publication-number {
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+/* Keep publication links consistent across categories */
+.publication-links a {
+  text-decoration: none;
+}
+/* Optional pacing for multiple publication sections */
+.publication-section {
+  margin-bottom: 56px;
+}
+.publication-section:last-child {
+  margin-bottom: 0;
+}
+/* Mobile adjustments are already covered by
+   the existing publication-item media query */
+
+
 /* ---------- Loading / error states ---------- */
 
 .publication-loading,
