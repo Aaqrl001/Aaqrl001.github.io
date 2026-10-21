@@ -2665,4 +2665,37 @@ button:focus-visible {
 
 }
 
+/* Galaxy S23 Ultra and other touch devices:
+   keep desktop-sized layouts usable with touch */
+
+@media (hover: none) and (pointer: coarse) {
+
+  .site-nav,
+  .nav-inner,
+  .nav-links,
+  .nav-links > li,
+  .has-dropdown {
+    overflow: visible;
+  }
+
+  .has-dropdown:hover > .dropdown-menu {
+    /* Do not rely on hover on touchscreens */
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .has-dropdown.dropdown-open > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .has-dropdown.dropdown-open > .dropdown-menu a {
+    display: block;
+  }
+}
+
 
