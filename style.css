@@ -588,7 +588,7 @@ button:focus-visible {
   cursor: pointer;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 950px) {
 
    .header-top {
     min-width: 0;
@@ -931,7 +931,7 @@ button:focus-visible {
   color: var(--steel);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .stat-strip {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -986,7 +986,7 @@ button:focus-visible {
   line-height: 1.65;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 600px) {
   .card-grid {
     grid-template-columns: 1fr;
   }
@@ -1319,7 +1319,7 @@ button:focus-visible {
    PUBLICATIONS — MOBILE
    ============================================================ */
 
-@media (max-width: 1150px) {
+@media (max-width: 750px) {
 
   .publication-item {
     grid-template-columns: 1fr;
@@ -1434,19 +1434,19 @@ button:focus-visible {
   color: var(--steel);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .people-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .pi-feature {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .people-grid {
     grid-template-columns: 1fr;
   }
@@ -1495,7 +1495,7 @@ button:focus-visible {
   color: var(--steel);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .course-item {
     grid-template-columns: 1fr;
 
@@ -1547,7 +1547,7 @@ button:focus-visible {
   color: var(--steel);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .outreach-item {
     grid-template-columns: 1fr;
 
@@ -2072,7 +2072,7 @@ button:focus-visible {
    RESPONSIVE — TABLET
    ============================================================ */
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
 
   .research-card-grid {
     grid-template-columns:
@@ -2086,7 +2086,7 @@ button:focus-visible {
    RESPONSIVE — TABLET / SMALL LAPTOP
    ============================================================ */
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
 
   .about-block {
     grid-template-columns: 1fr;
@@ -2117,7 +2117,7 @@ button:focus-visible {
    RESPONSIVE — MOBILE
    ============================================================ */
 
-@media (max-width: 1150px) {
+@media (max-width: 750px) {
 
   .section {
     padding: 56px 0;
@@ -2594,7 +2594,7 @@ button:focus-visible {
 }
 
 /* Tablet */
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .art-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
