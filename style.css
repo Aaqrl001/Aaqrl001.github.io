@@ -609,7 +609,7 @@ iframe {
   cursor: pointer;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 950px) {
 
    .header-top {
     min-width: 0;
@@ -1340,7 +1340,7 @@ iframe {
    PUBLICATIONS — MOBILE
    ============================================================ */
 
-@media (max-width: 600px) {
+@media (max-width: 950px) {
 
   .publication-item {
     grid-template-columns: 1fr;
@@ -2138,7 +2138,7 @@ iframe {
    RESPONSIVE — MOBILE
    ============================================================ */
 
-@media (max-width: 760px) {
+@media (max-width: 950px) {
 
   .section {
     padding: 56px 0;
