@@ -568,81 +568,82 @@ button:focus-visible {
 }
 
 
+
 /* ============================================================
-   MOBILE NAVIGATION
+   RESPONSIVE NAVIGATION — DESKTOP TO MOBILE MENU
    ============================================================ */
 
 .nav-toggle {
   display: none;
-
   padding: 10px 0;
-
   border: none;
-
   background: none;
-
   color: var(--paper);
-
-  font-size: 21px;
-
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
 }
 
-@media (max-width: 950px) {
+/* Desktop navigation */
+.nav-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  overflow: visible;
+}
 
-   .header-top {
-    min-width: 0;
-    flex-wrap: wrap;
-  }
+.nav-links {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-  .header-titles {
-    min-width: 0;
-    flex: 1 1 160px;
-  }
+.nav-links > li {
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
+}
 
-  .header-titles .lab-name {
-    overflow-wrap: anywhere;
-  }
+.nav-link {
+  display: block;
+  padding: 14px 10px;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(247, 245, 241, 0.80);
+  border-bottom: 2px solid transparent;
+}
 
-  .aaqrl-logo {
-    max-width: 100%;
-  }
-
-  .site-nav {
-    position: relative;
-  }
+/* Switch to hamburger menu before links run out of space */
+@media (max-width: 1100px) {
 
   .nav-inner {
     display: flex;
-
     flex-direction: column;
     align-items: stretch;
-
     padding: 6px 0;
   }
 
   .nav-toggle {
     display: block;
-
     width: 100%;
-
     text-align: left;
   }
 
   .nav-links {
-    position: static;
-
     display: none;
-
-    width: 100%;
-
     flex-direction: column;
-
+    align-items: stretch;
+    width: 100%;
     gap: 0;
-
-    margin: 0;
-    padding: 0;
-
     background: var(--ink);
   }
 
@@ -656,13 +657,11 @@ button:focus-visible {
 
   .nav-link {
     width: 100%;
-
-    padding: 12px 24px;
-
+    padding: 12px 16px;
+    white-space: normal;
+    font-size: 16px;
     border-left: 2px solid transparent;
     border-bottom: none;
-
-    font-size: 16px;
   }
 
   .nav-link.active {
@@ -670,26 +669,20 @@ button:focus-visible {
     border-bottom: none;
   }
 
+  /* Mobile dropdowns */
   .dropdown-menu {
     position: static;
-
     display: none;
-
     width: 100%;
     min-width: 0;
-
     padding: 0;
-
     opacity: 1;
     visibility: visible;
-
+    pointer-events: auto;
     transform: none;
-
     background: rgba(0, 0, 0, 0.12);
-
     border: none;
     border-left: 3px solid var(--aqi-orange);
-
     box-shadow: none;
   }
 
@@ -697,31 +690,24 @@ button:focus-visible {
     display: block;
   }
 
-  .has-dropdown:hover > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-
+  .has-dropdown:hover > .dropdown-menu,
+  .has-dropdown:focus-within > .dropdown-menu {
     transform: none;
   }
 
   .dropdown-menu a {
     padding: 10px 30px;
-
-    color: rgba(247, 245, 241, 0.78);
-
+    color: rgba(247, 245, 241, 0.85);
     font-size: 14px;
-
+    white-space: normal;
     border-left: none;
   }
 
   .dropdown-menu a:hover,
   .dropdown-menu a:focus {
     padding-left: 34px;
-
     color: var(--paper);
-
     background: rgba(255, 255, 255, 0.06);
-
     border-left: none;
   }
 }
