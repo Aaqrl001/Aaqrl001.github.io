@@ -1,0 +1,51 @@
+
+[
+  {
+    "number": 1,
+    "name": "Derong Zhou",
+    "graduation": "January 1991",
+    "thesis": "YBCO Superconducting Powder Generation by an Aerosol Process",
+    "position": "Consultant, TSN, Pennsylvania.",
+    "profile": ""
+  },
+  {
+    "number": 2,
+    "name": "Shaibal Mukherjee",
+    "graduation": "July 1991",
+    "thesis": "Source Resolution and Risk Apportionment of Air Emission Sources in an Industrial Complex for Risk Reduction Considerations: An Air Waste Management Methodology.",
+    "position": "Research Scientist, US EPA, Research Triangle Park, North Carolina.",
+    "profile": ""
+  },
+  {
+    "number": 3,
+    "name": "Chungsying Lu",
+    "graduation": "December 1991",
+    "thesis": "Theoretical Study of Particle, Chemical and Microbial Transport in Drinking Water Distribution Systems.",
+    "position": "Professor, Dept. of Env. Engr., National Chung Hsing Univ., Taiwan.",
+    "profile": ""
+  },
+  {
+    "number": 4,
+    "name": "Hyuksang Chang",
+    "graduation": "December 1991",
+    "thesis": "Particle Characterization in Flames by In Situ Light Scattering Measurements.",
+    "position": "Professor, Dept. of Env. Engineering, Yeungnam University, S. Korea.",
+    "profile": ""
+  },
+  {
+    "number": 5,
+    "name": "Hsunling Bai",
+    "graduation": "January 1992",
+    "thesis": "Fundamental Study of Ammonia-Sulfur Dioxide Reactions to Form Solid Particles.",
+    "position": "Professor, National Chiao Tung University, Taiwan.",
+    "profile": ""
+  },
+  {
+    "number": 6,
+    "name": "Wen Yinn Lin",
+    "graduation": "August 1993",
+    "thesis": "Multicomponent Aerosol Dynamics in Incinerators.",
+    "position": "Professor, National Taipei University of Technology, Taiwan.",
+    "profile": ""
+  }
+]
