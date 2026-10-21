@@ -155,14 +155,14 @@ async function loadAlumni() {
       item.append(nameLine, thesis, position);
       list.appendChild(item);
     }
-  } catch (err) {
-    console.error(err);
+  
+   } catch (err) {
+     console.error("Alumni error:", err);
 
-    list.textContent = "Unable to load alumni information.";
-    error.textContent =
-      "Check that alumni.docx exists in the website folder " +
-      "and that the site is served over HTTP.";
-  }
+     list.textContent = "Unable to load alumni information.";
+     error.textContent = "Error details: " + err.message;
+   }
+
 }
 
 loadAlumni();
