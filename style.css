@@ -2384,3 +2384,252 @@ button:focus-visible {
   }
 }
 
+
+/* ========================================
+   AAAR ART GALLERY
+======================================== */
+
+.aaar-gallery {
+  padding: 20px 0 90px;
+}
+
+.gallery-year {
+  padding-top: 48px;
+  padding-bottom: 24px;
+  scroll-margin-top: 100px;
+}
+
+.gallery-year + .gallery-year {
+  border-top: 1px solid #e4e7eb;
+  margin-top: 30px;
+}
+
+.gallery-year-heading {
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+.gallery-year-heading h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 10px 0 12px;
+  color: #111827;
+}
+
+.gallery-year-heading p {
+  color: #606b78;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.gallery-category {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #222b38;
+  margin: 34px 0 20px;
+  padding-left: 14px;
+  border-left: 4px solid #a6192e;
+}
+
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+}
+
+.art-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e7e9ed;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(20, 30, 45, 0.045);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.art-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(20, 30, 45, 0.10);
+}
+
+.art-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+.art-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.art-card:hover .art-image img {
+  transform: scale(1.04);
+}
+
+.art-content {
+  padding: 22px;
+}
+
+.art-type {
+  display: inline-block;
+  color: #8f1729;
+  background: #f9edef;
+  border-radius: 4px;
+  padding: 5px 9px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.art-content h4 {
+  font-family: "Fraunces", Georgia, serif;
+  color: #17202c;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+
+.art-content p {
+  color: #5d6673;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  margin: 0 0 14px;
+}
+
+.art-content .art-authors {
+  color: #343e4b;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  border-top: 1px solid #eceef1;
+  padding-top: 13px;
+  margin: 15px 0 0;
+}
+
+/* ========================================
+   VIDEO ART LINKS
+======================================== */
+
+.art-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 10px 0;
+  color: #a6192e;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.art-video-link:hover {
+  color: #761020;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.art-video-link span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.art-video-link:hover span {
+  transform: translateX(4px);
+}
+
+/* Visible keyboard focus for accessibility */
+.art-video-link:focus-visible,
+.art-image:focus-visible {
+  outline: 3px solid #a6192e;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* Video label on thumbnails */
+.video-label {
+  display: inline-block;
+  margin: 12px;
+  padding: 7px 12px;
+  border-radius: 5px;
+  background: rgba(20, 27, 38, 0.85);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .art-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .aaar-gallery {
+    padding-bottom: 55px;
+  }
+
+  .gallery-year {
+    padding-top: 34px;
+  }
+
+  .art-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .art-content {
+    padding: 19px;
+  }
+
+  .gallery-category {
+    font-size: 1.1rem;
+  }
+
+  .art-video-link {
+    margin-top: 16px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .art-card,
+  .art-image img,
+  .art-video-link,
+  .art-video-link span {
+    transition: none;
+  }
+
+  .art-card:hover {
+    transform: none;
+  }
+
+  .art-card:hover .art-image img {
+    transform: none;
+  }
+
+  .art-video-link:hover span {
+    transform: none;
+  }
+}
+
