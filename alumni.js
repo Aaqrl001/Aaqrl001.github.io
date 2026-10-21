@@ -23,7 +23,6 @@ async function loadAlumni() {
 
     const alumni = [];
     let current = null;
-    let sectionHeading = "";
 
     function saveCurrent() {
       if (current && current.name) {
@@ -38,8 +37,7 @@ async function loadAlumni() {
         /Washington University in St\. Louis Graduates/i.test(line)
       ) {
         saveCurrent();
-        sectionHeading = line;
-        alumni.push({ heading: sectionHeading });
+        alumni.push({ heading: line });
         continue;
       }
 
@@ -49,25 +47,41 @@ async function loadAlumni() {
       if (match) {
         saveCurrent();
 
+        // Separate the name from the graduation information.
+        const nameMatch = match[2].match(
+          /^(.*?),\s*Graduated\b/i
+        );
+
         current = {
           number: match[1],
-          name: match[2],
+          name: nameMatch ? nameMatch[1].trim() : match[2].trim(),
+          graduation: nameMatch
+            ? match[2].slice(nameMatch[0].length).trim()
+            : "",
           thesis: "",
-          position: ""
+          position: "",
+          profile: ""
         };
-
-        // Extract a LinkedIn URL if one exists in the same line.
-        const urlMatch = line.match(/https?:\/\/\S+/i);
-        current.linkedin = urlMatch ? urlMatch[0] : "";
 
         continue;
       }
 
       if (!current) continue;
 
+      // Read the thesis.
       if (/^Thesis\s*:/i.test(line)) {
         current.thesis = line.replace(/^Thesis\s*:\s*/i, "");
-      } else {
+      }
+
+      // Read the profile URL.
+      else if (/^Profile\s*:/i.test(line)) {
+        current.profile = line
+          .replace(/^Profile\s*:\s*/i, "")
+          .trim();
+      }
+
+      // Read the position or current affiliation.
+      else {
         current.position = current.position
           ? current.position + " " + line
           : line;
@@ -77,12 +91,14 @@ async function loadAlumni() {
     saveCurrent();
 
     list.replaceChildren();
+    error.textContent = "";
 
     if (alumni.length === 0) {
       throw new Error("No numbered alumni records were found.");
     }
 
     for (const person of alumni) {
+      // Display subsection headings.
       if (person.heading) {
         const heading = document.createElement("h3");
         heading.className = "alumni-group-heading";
@@ -94,6 +110,7 @@ async function loadAlumni() {
       const item = document.createElement("article");
       item.className = "alumni-item";
 
+      // Name and graduation information.
       const nameLine = document.createElement("div");
       nameLine.className = "alumni-name";
 
@@ -101,22 +118,36 @@ async function loadAlumni() {
       name.textContent = `${person.number}. ${person.name}`;
       nameLine.appendChild(name);
 
-      if (person.linkedin) {
-        const link = document.createElement("a");
-        link.href = person.linkedin;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = " LinkedIn";
-        nameLine.append(" (", link, ")");
+      if (person.graduation) {
+        const graduation = document.createElement("span");
+        graduation.textContent = `, Graduated ${person.graduation}`;
+        nameLine.appendChild(graduation);
       }
 
+      // Add the Visit Profile button only when a URL exists.
+      if (person.profile && /^https?:\/\//i.test(person.profile)) {
+        const profileButton = document.createElement("a");
+        profileButton.className = "alumni-profile-button";
+        profileButton.href = person.profile;
+        profileButton.target = "_blank";
+        profileButton.rel = "noopener noreferrer";
+        profileButton.textContent = "Visit Profile";
+        nameLine.appendChild(profileButton);
+      }
+
+      // Thesis.
       const thesis = document.createElement("div");
       thesis.className = "alumni-thesis";
 
       const thesisLabel = document.createElement("strong");
       thesisLabel.textContent = "Thesis: ";
-      thesis.append(thesisLabel, person.thesis || "Not provided");
 
+      thesis.append(
+        thesisLabel,
+        person.thesis || "Not provided"
+      );
+
+      // Position or current affiliation.
       const position = document.createElement("div");
       position.className = "alumni-position";
       position.textContent = person.position;
@@ -126,9 +157,11 @@ async function loadAlumni() {
     }
   } catch (err) {
     console.error(err);
+
     list.textContent = "Unable to load alumni information.";
     error.textContent =
-      "Check that alumni.docx is in the website folder and that the site is served over HTTP.";
+      "Check that alumni.docx exists in the website folder " +
+      "and that the site is served over HTTP.";
   }
 }
 
