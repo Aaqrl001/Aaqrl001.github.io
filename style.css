@@ -2267,3 +2267,120 @@ button:focus-visible {
   }
 
 }
+
+
+/* ============================================================
+   ALUMNI
+   ============================================================ */
+
+.alumni-list {
+  border-top: 1px solid var(--line);
+}
+
+.alumni-group-heading {
+  margin: 38px 0 16px;
+  padding-bottom: 10px;
+
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+
+  color: var(--ink);
+
+  border-bottom: 2px solid var(--aqi-orange);
+}
+
+.alumni-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.alumni-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 8px;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.alumni-name strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.alumni-profile-button {
+  display: inline-block;
+
+  padding: 5px 12px;
+
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+
+  background: var(--accent);
+  color: var(--paper);
+
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.alumni-profile-button:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: #ffffff;
+}
+
+.alumni-thesis {
+  margin-bottom: 6px;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  color: var(--graphite);
+  overflow-wrap: anywhere;
+}
+
+.alumni-thesis strong {
+  color: var(--ink);
+}
+
+.alumni-position {
+  font-size: 13px;
+  line-height: 1.65;
+
+  color: var(--steel);
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 600px) {
+  .alumni-item {
+    padding: 18px 0;
+  }
+
+  .alumni-name {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .alumni-profile-button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .alumni-group-heading {
+    font-size: 21px;
+  }
+}
+
