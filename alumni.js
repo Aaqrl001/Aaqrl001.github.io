@@ -42,29 +42,31 @@ async function loadAlumni() {
       }
 
       // Start a new numbered alumnus.
-      const match = line.match(/^(\d+)\.\s*(.+)$/);
+      const match = line.match(/^(?:(\d+)[.)]\s*)?(.+?)$/);
 
-      if (match) {
-        saveCurrent();
+if (
+  match &&
+  /,\s*Graduated\b/i.test(match[2]) &&
+  !/^Thesis\s*:/i.test(match[2])
+) {
+  saveCurrent();
 
-        // Separate the name from the graduation information.
-        const nameMatch = match[2].match(
-          /^(.*?),\s*Graduated\b/i
-        );
+  const nameMatch = match[2].match(
+    /^(.*?),\s*Graduated\s+(.+)$/i
+  );
 
-        current = {
-          number: match[1],
-          name: nameMatch ? nameMatch[1].trim() : match[2].trim(),
-          graduation: nameMatch
-            ? match[2].slice(nameMatch[0].length).trim()
-            : "",
-          thesis: "",
-          position: "",
-          profile: ""
-        };
+  current = {
+    number: match[1] || String(alumni.length + 1),
+    name: nameMatch ? nameMatch[1].trim() : match[2].trim(),
+    graduation: nameMatch ? nameMatch[2].trim() : "",
+    thesis: "",
+    position: "",
+    profile: ""
+  };
 
-        continue;
-      }
+  continue;
+}
+
 
       if (!current) continue;
 
