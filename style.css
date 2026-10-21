@@ -2639,7 +2639,7 @@ button:focus-visible {
 
 
 /* Fix dropdowns in the collapsed mobile menu */
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
 
   .nav-links.open .has-dropdown > .dropdown-menu {
     position: static;
