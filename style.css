@@ -623,7 +623,7 @@ button:focus-visible {
 }
 
 /* Switch to hamburger menu before links run out of space */
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
 
   .nav-inner {
     display: flex;
@@ -2637,65 +2637,5 @@ button:focus-visible {
   }
 }
 
-
-/* Fix dropdowns in the collapsed mobile menu */
-@media (max-width: 1000px) {
-
-  .nav-links.open .has-dropdown > .dropdown-menu {
-    position: static;
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    transform: none;
-  }
-
-  .nav-links.open .has-dropdown.dropdown-open > .dropdown-menu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .nav-links.open .has-dropdown > .dropdown-menu a {
-    display: block;
-    white-space: normal;
-    padding: 12px 30px;
-    color: var(--paper);
-  }
-
-}
-
-/* Galaxy S23 Ultra and other touch devices:
-   keep desktop-sized layouts usable with touch */
-
-@media (hover: none) and (pointer: coarse) {
-
-  .site-nav,
-  .nav-inner,
-  .nav-links,
-  .nav-links > li,
-  .has-dropdown {
-    overflow: visible;
-  }
-
-  .has-dropdown:hover > .dropdown-menu {
-    /* Do not rely on hover on touchscreens */
-    visibility: hidden;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .has-dropdown.dropdown-open > .dropdown-menu {
-    display: block;
-    visibility: visible;
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .has-dropdown.dropdown-open > .dropdown-menu a {
-    display: block;
-  }
-}
 
 
