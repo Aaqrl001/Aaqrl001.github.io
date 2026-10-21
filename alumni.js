@@ -75,7 +75,7 @@ async function loadAlumni() {
             button.href = url.href;
             button.target = "_blank";
             button.rel = "noopener noreferrer";
-            button.textContent = "Visit Profile";
+            button.textContent = "LinkedIn";
 
             nameLine.appendChild(button);
           }
