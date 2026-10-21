@@ -161,6 +161,27 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+/* Prevent horizontal overflow during window resizing */
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+
 
 /* ============================================================
    GLOBAL CONTAINER
@@ -308,7 +329,7 @@ button:focus-visible {
 .about-block {
   display: grid;
   grid-template-columns: auto 250px;
-  column-gap: 10 px;
+  column-gap: 10px;
   align-items: start;
 }
 
@@ -589,6 +610,24 @@ button:focus-visible {
 }
 
 @media (max-width: 760px) {
+
+   .header-top {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .header-titles {
+    min-width: 0;
+    flex: 1 1 160px;
+  }
+
+  .header-titles .lab-name {
+    overflow-wrap: anywhere;
+  }
+
+  .aaqrl-logo {
+    max-width: 100%;
+  }
 
   .site-nav {
     position: relative;
