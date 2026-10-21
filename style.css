@@ -599,7 +599,7 @@ button:focus-visible {
   display: flex;
   align-items: stretch;
   flex-wrap: nowrap;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
   margin: 0;
   padding: 0;
