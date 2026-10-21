@@ -2639,3 +2639,110 @@ button:focus-visible {
 
 
 
+/* Journal heading and publication tabs */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.publication-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.publication-tab {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.publication-tab:hover {
+  background-color: #1f4e79;
+  border-color: #1f4e79;
+  color: #fff;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .section-head {
+    align-items: flex-start;
+  }
+
+  .publication-tabs {
+    width: 100%;
+  }
+}
+
+
+
+/* Education page navigation tabs */
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.education-header-content {
+  flex: 1 1 300px;
+}
+
+.education-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.education-tab {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.education-tab:hover,
+.education-tab:focus-visible {
+  background-color: #fff;
+  color: #1f4e79;
+  border-color: #fff;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .education-header {
+    align-items: flex-start;
+  }
+
+  .education-tabs {
+    justify-content: flex-start;
+  }
+
+  .education-tab {
+    white-space: normal;
+  }
+}
+
